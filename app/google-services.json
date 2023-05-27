@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1083775577353",
+    "project_id": "healthy-habit-555",
+    "storage_bucket": "healthy-habit-555.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1083775577353:android:aac73820c69b198c1337d8",
+        "android_client_info": {
+          "package_name": "com.mohamednader.healthyhabit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1083775577353-1uqrgrt0luj60qk6u0o4bn7rg07dfjgg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mohamednader.healthyhabit",
+            "certificate_hash": "107f6b140f5f4d5f4f48a087131a351c3304370b"
+          }
+        },
+        {
+          "client_id": "1083775577353-3ntfgcacmgha9o87mvd1b47lud694aie.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCALEOku3Dp8mGqk16cZRlZcyhEpG_63PQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1083775577353-3ntfgcacmgha9o87mvd1b47lud694aie.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
