@@ -30,7 +30,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.mohamednader.healthyhabit.Home.HomeActivity;
+import com.mohamednader.healthyhabit.Home.View.HomeActivity;
 import com.mohamednader.healthyhabit.R;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {

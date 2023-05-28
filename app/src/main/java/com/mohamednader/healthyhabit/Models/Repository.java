@@ -4,27 +4,29 @@ import android.content.Context;
 
 import com.mohamednader.healthyhabit.Network.ApiClient;
 import com.mohamednader.healthyhabit.Network.NetworkDelegate;
+import com.mohamednader.healthyhabit.Network.RemoteSource;
 
-public class Repository {
+public class Repository implements RepositoryInterface{
 
     Context context;
-    private NetworkDelegate networkDelegate;
+    RemoteSource remoteSource;
     private static Repository repo = null;
 
-    private Repository(Context context, NetworkDelegate networkDelegate) {
+    private Repository(Context context, RemoteSource remoteSource) {
         this.context = context;
-        this.networkDelegate = networkDelegate;
+        this.remoteSource = remoteSource;
     }
 
-    public static Repository getInstance(Context context, NetworkDelegate networkDelegate) {
+    public static Repository getInstance(Context context, RemoteSource remoteSource) {
         if (repo == null) {
-            repo = new Repository(context, networkDelegate);
+            repo = new Repository(context, remoteSource);
         }
         return repo;
     }
 
-    public void getAllMealsByFirstLetterFromNetwork(){
-        ApiClient.getInstance().startCall(networkDelegate);
-    }
 
+    @Override
+    public void startCallToGetMealsByFirstLetter(NetworkDelegate networkDelegate, Character character) {
+        remoteSource.startCallToGetMealsByFirstLetter(networkDelegate, character);
+    }
 }

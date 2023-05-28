@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.mohamednader.healthyhabit.Auth.LoginActivity;
-import com.mohamednader.healthyhabit.Home.HomeActivity;
+import com.mohamednader.healthyhabit.Home.View.HomeActivity;
 
 public class Splash extends AppCompatActivity {
 

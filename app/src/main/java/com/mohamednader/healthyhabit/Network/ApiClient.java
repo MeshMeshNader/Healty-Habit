@@ -14,7 +14,7 @@ public class ApiClient implements RemoteSource{
 
     ApiService apiService;
     private static ApiClient apiClient = null;
-    private static final String BASE_URL = " www.themealdb.com/api/json/v1/1/";
+    private static final String BASE_URL = "https://www.themealdb.com/api/json/v1/1/";
 
     private ApiClient() {
         Gson gson = new GsonBuilder().create();
@@ -33,13 +33,13 @@ public class ApiClient implements RemoteSource{
     }
 
     @Override
-    public void startCall(NetworkDelegate networkDelegate) {
+    public void startCallToGetMealsByFirstLetter(NetworkDelegate networkDelegate, Character character) {
         Callback<Meals> responseCallBack = new Callback<Meals>(){
 
             @Override
             public void onResponse(Call<Meals> call, Response<Meals> response) {
                 if (response.isSuccessful()){
-                    networkDelegate.onSuccessResponse();
+                    networkDelegate.onSuccessResponse(response.body().getMeals());
                 }
             }
 
@@ -48,7 +48,7 @@ public class ApiClient implements RemoteSource{
                 networkDelegate.onFailureResponse(t.getMessage());
             }
         };
-        Call<Meals> mealsByFirstLetter = apiService.getMealsByFirstLetter('a');
+        Call<Meals> mealsByFirstLetter = apiService.getMealsByFirstLetter(character);
 
         mealsByFirstLetter.enqueue(responseCallBack);
     }
