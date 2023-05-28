@@ -9,6 +9,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,8 +35,8 @@ import com.mohamednader.healthyhabit.R;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
-    TextInputLayout emailInputLayout, passwordInputLayout;
-    TextView emailEditText, passwordEditText;
+    private TextInputLayout emailInputLayout, passwordInputLayout;
+    private EditText emailEditText, passwordEditText;
     private Button loginButton, googleButton, guestButton;
     private TextView forgetPasswordTextView, signUpTextView;
     private ProgressDialog mLoading;
@@ -312,10 +313,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             return false;
         } else if (passwordEditText.getText().toString().isEmpty()) {
             Toast.makeText(this, "Please Enter Your Password", Toast.LENGTH_SHORT).show();
-            return false;
-        } else if (passwordEditText.getText().toString().length() < 8) {
-            passwordEditText.setError("Password < 8");
-            Toast.makeText(this, "Please Enter a Password more than 8 chars", Toast.LENGTH_LONG).show();
             return false;
         }
         return true;
