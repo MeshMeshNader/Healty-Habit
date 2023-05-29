@@ -1,10 +1,10 @@
 
 package com.mohamednader.healthyhabit.Models.MealsModels;
 
- import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
- public class Meal {
+public class Meal {
 
     @SerializedName("idMeal")
     @Expose
@@ -165,6 +165,51 @@ import com.google.gson.annotations.SerializedName;
     @SerializedName("dateModified")
     @Expose
     private Object dateModified;
+
+    @SerializedName("idIngredient")
+    @Expose
+    private String idIngredientItem;
+    @SerializedName("strIngredient")
+    @Expose
+    private String strIngredientItem;
+    @SerializedName("strDescription")
+    @Expose
+    private Object strIngredientItemDescription;
+    @SerializedName("strType")
+    @Expose
+    private Object strIngredientItemType;
+
+    public String getIdIngredientItem() {
+        return idIngredientItem;
+    }
+
+    public void setIdIngredientItem(String idIngredientItem) {
+        this.idIngredientItem = idIngredientItem;
+    }
+
+    public String getStrIngredientItem() {
+        return strIngredientItem;
+    }
+
+    public void setStrIngredientItem(String strIngredientItem) {
+        this.strIngredientItem = strIngredientItem;
+    }
+
+    public Object getStrIngredientItemDescription() {
+        return strIngredientItemDescription;
+    }
+
+    public void setStrIngredientItemDescription(Object strIngredientItemDescription) {
+        this.strIngredientItemDescription = strIngredientItemDescription;
+    }
+
+    public Object getStrIngredientItemType() {
+        return strIngredientItemType;
+    }
+
+    public void setStrIngredientItemType(Object strIngredientItemType) {
+        this.strIngredientItemType = strIngredientItemType;
+    }
 
     public String getIdMeal() {
         return idMeal;
