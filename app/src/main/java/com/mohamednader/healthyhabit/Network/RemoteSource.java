@@ -1,23 +1,27 @@
 package com.mohamednader.healthyhabit.Network;
 
 public interface RemoteSource {
-    public void startCallToGetMealsByFirstLetter(NetworkDelegate networkDelegate, Character character);
+    public void startCallToGetMealsByFirstLetter(NetworkDelegateAPI networkDelegate, Character character);
 
-    public void startCallToGetRandomMeal(NetworkDelegate networkDelegate);
+    public void startCallToGetRandomMeal(NetworkDelegateAPI networkDelegate);
 
-    public void startCallToGetMealDetailsByID(NetworkDelegate networkDelegate, int id);
+    public void startCallToGetMealDetailsByID(NetworkDelegateAPI networkDelegate, int id);
 
-    public void startCallToGetListCategoriesNames(NetworkDelegate networkDelegate);
+    public void startCallToGetListCategoriesNames(NetworkDelegateAPI networkDelegate);
 
-    public void startCallToGetListAreasNames(NetworkDelegate networkDelegate);
+    public void startCallToGetListAreasNames(NetworkDelegateAPI networkDelegate);
 
-    public void startCallToGetListIngredientsNames(NetworkDelegate networkDelegate);
+    public void startCallToGetListIngredientsNames(NetworkDelegateAPI networkDelegate);
 
-    public void startCallToGetMealsByCategory(NetworkDelegate networkDelegate, String category);
+    public void startCallToGetMealsByCategory(NetworkDelegateAPI networkDelegate, String category);
 
-    public void startCallToGetMealsByArea(NetworkDelegate networkDelegate, String area);
+    public void startCallToGetMealsByArea(NetworkDelegateAPI networkDelegate, String area);
 
-    public void startCallToGetMealsByIngredient(NetworkDelegate networkDelegate, String ingredient);
+    public void startCallToGetMealsByIngredient(NetworkDelegateAPI networkDelegate, String ingredient);
 
-    public void startCallToGetListCategoriesDetails(NetworkDelegate networkDelegate);
+    public void startCallToGetListCategoriesDetails(NetworkDelegateAPI networkDelegate);
+
+   // public void startCallFirebaseLogin(NetworkDelegateAPI networkDelegate, String email, String password);
+
+
 }

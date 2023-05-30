@@ -8,7 +8,6 @@ public interface HomePresenterInterface {
     public void getListCategoriesNames();
     public void getListAreasNames();
     public void getListIngredientsNames();
-    public void getMealsByCategory(String category);
     public void getMealsByArea(String area);
     public void getMealsByIngredient(String ingredient);
     public void getListCategoriesDetails();

@@ -1,9 +1,10 @@
 package com.mohamednader.healthyhabit.Home.Presenter;
 
 import com.mohamednader.healthyhabit.Home.View.HomeViewInterface;
+import com.mohamednader.healthyhabit.Models.CategoriesModels.Category;
 import com.mohamednader.healthyhabit.Models.MealsModels.Meal;
 import com.mohamednader.healthyhabit.Models.RepositoryInterface;
-import com.mohamednader.healthyhabit.Network.NetworkDelegate;
+import com.mohamednader.healthyhabit.Network.NetworkDelegateAPI;
 
 import java.util.List;
 
@@ -18,22 +19,17 @@ public class HomePresenter implements HomePresenterInterface {
     }
 
 
-//    @Override
-//    public void onSuccessResponse(List<Meal> list) {
-//        viewInterface.showMealsByLetterFilter(list);
-//    }
-//
-//    @Override
-//    public void onFailureResponse(String errorMsg) {
-//
-//    }
-
     @Override
     public void getMealsByLetterFilter(Character character) {
-        repositoryInterface.startCallToGetMealsByFirstLetter(new NetworkDelegate() {
+        repositoryInterface.startCallToGetMealsByFirstLetter(new NetworkDelegateAPI() {
             @Override
-            public void onSuccessResponse(List<Meal> list) {
+            public void onSuccessResponseMeal(List<Meal> list) {
                 viewInterface.showMealsByLetterFilter(list);
+            }
+
+            @Override
+            public void onSuccessResponseCategory(List<Category> list) {
+
             }
 
             @Override
@@ -45,10 +41,15 @@ public class HomePresenter implements HomePresenterInterface {
 
     @Override
     public void getRandomMeal() {
-        repositoryInterface.startCallToGetRandomMeal(new NetworkDelegate() {
+        repositoryInterface.startCallToGetRandomMeal(new NetworkDelegateAPI() {
             @Override
-            public void onSuccessResponse(List<Meal> list) {
+            public void onSuccessResponseMeal(List<Meal> list) {
                 viewInterface.showRandomMeal(list);
+            }
+
+            @Override
+            public void onSuccessResponseCategory(List<Category> list) {
+
             }
 
             @Override
@@ -60,10 +61,15 @@ public class HomePresenter implements HomePresenterInterface {
 
     @Override
     public void getMealDetailsByID(int id) {
-        repositoryInterface.startCallToGetMealDetailsByID(new NetworkDelegate() {
+        repositoryInterface.startCallToGetMealDetailsByID(new NetworkDelegateAPI() {
             @Override
-            public void onSuccessResponse(List<Meal> list) {
+            public void onSuccessResponseMeal(List<Meal> list) {
                 viewInterface.showMealDetailsByID(list);
+            }
+
+            @Override
+            public void onSuccessResponseCategory(List<Category> list) {
+
             }
 
             @Override
@@ -75,10 +81,18 @@ public class HomePresenter implements HomePresenterInterface {
 
     @Override
     public void getListCategoriesNames() {
-        repositoryInterface.startCallToGetListCategoriesNames(new NetworkDelegate() {
+
+
+
+        repositoryInterface.startCallToGetListCategoriesNames(new NetworkDelegateAPI() {
             @Override
-            public void onSuccessResponse(List<Meal> list) {
+            public void onSuccessResponseMeal(List<Meal> list) {
                 viewInterface.showListCategoriesNames(list);
+            }
+
+            @Override
+            public void onSuccessResponseCategory(List<Category> list) {
+
             }
 
             @Override
@@ -90,10 +104,19 @@ public class HomePresenter implements HomePresenterInterface {
 
     @Override
     public void getListAreasNames() {
-        repositoryInterface.startCallToGetListAreasNames(new NetworkDelegate() {
+
+        viewInterface.showLoading();
+
+        repositoryInterface.startCallToGetListAreasNames(new NetworkDelegateAPI() {
             @Override
-            public void onSuccessResponse(List<Meal> list) {
+            public void onSuccessResponseMeal(List<Meal> list) {
+                viewInterface.hideLoading();
                 viewInterface.showListAreasNames(list);
+            }
+
+            @Override
+            public void onSuccessResponseCategory(List<Category> list) {
+
             }
 
             @Override
@@ -105,10 +128,15 @@ public class HomePresenter implements HomePresenterInterface {
 
     @Override
     public void getListIngredientsNames() {
-        repositoryInterface.startCallToGetListIngredientsNames(new NetworkDelegate() {
+        repositoryInterface.startCallToGetListIngredientsNames(new NetworkDelegateAPI() {
             @Override
-            public void onSuccessResponse(List<Meal> list) {
+            public void onSuccessResponseMeal(List<Meal> list) {
                 viewInterface.showListIngredientsNames(list);
+            }
+
+            @Override
+            public void onSuccessResponseCategory(List<Category> list) {
+
             }
 
             @Override
@@ -119,26 +147,16 @@ public class HomePresenter implements HomePresenterInterface {
     }
 
     @Override
-    public void getMealsByCategory(String category) {
-        repositoryInterface.startCallToGetMealsByCategory(new NetworkDelegate() {
-            @Override
-            public void onSuccessResponse(List<Meal> list) {
-                viewInterface.showMealsByCategory(list);
-            }
-
-            @Override
-            public void onFailureResponse(String errorMsg) {
-
-            }
-        }, category);
-    }
-
-    @Override
     public void getMealsByArea(String area) {
-        repositoryInterface.startCallToGetMealsByArea(new NetworkDelegate() {
+        repositoryInterface.startCallToGetMealsByArea(new NetworkDelegateAPI() {
             @Override
-            public void onSuccessResponse(List<Meal> list) {
+            public void onSuccessResponseMeal(List<Meal> list) {
                 viewInterface.showMealsByArea(list);
+            }
+
+            @Override
+            public void onSuccessResponseCategory(List<Category> list) {
+
             }
 
             @Override
@@ -150,10 +168,15 @@ public class HomePresenter implements HomePresenterInterface {
 
     @Override
     public void getMealsByIngredient(String ingredient) {
-        repositoryInterface.startCallToGetMealsByIngredient(new NetworkDelegate() {
+        repositoryInterface.startCallToGetMealsByIngredient(new NetworkDelegateAPI() {
             @Override
-            public void onSuccessResponse(List<Meal> list) {
+            public void onSuccessResponseMeal(List<Meal> list) {
                 viewInterface.showMealsByIngredient(list);
+            }
+
+            @Override
+            public void onSuccessResponseCategory(List<Category> list) {
+
             }
 
             @Override
@@ -165,10 +188,17 @@ public class HomePresenter implements HomePresenterInterface {
 
     @Override
     public void getListCategoriesDetails() {
-        repositoryInterface.startCallToGetListCategoriesDetails(new NetworkDelegate() {
+        viewInterface.showLoading();
+        repositoryInterface.startCallToGetListCategoriesDetails(new NetworkDelegateAPI() {
             @Override
-            public void onSuccessResponse(List<Meal> list) {
-                //viewInterface.showListCategoriesDetails(list);
+            public void onSuccessResponseMeal(List<Meal> list) {
+
+            }
+
+            @Override
+            public void onSuccessResponseCategory(List<Category> list) {
+                viewInterface.hideLoading();
+                viewInterface.showListCategoriesDetails(list);
             }
 
             @Override

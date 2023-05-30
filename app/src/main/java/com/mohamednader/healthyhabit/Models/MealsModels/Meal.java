@@ -4,7 +4,9 @@ package com.mohamednader.healthyhabit.Models.MealsModels;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Meal {
+import java.io.Serializable;
+
+public class Meal implements Serializable {
 
     @SerializedName("idMeal")
     @Expose

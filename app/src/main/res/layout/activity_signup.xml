@@ -25,15 +25,15 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="30dp"
         android:hint="Name"
-        app:boxStrokeColor="@color/secondary_color"
+        app:boxStrokeColor="@color/primary_color"
         app:endIconMode="clear_text"
-        app:errorIconTint="@color/primary_color"
-        app:hintTextColor="@color/secondary_color"
+        app:errorIconTint="@color/secondary_color"
+        app:hintTextColor="@color/primary_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/logo"
         app:startIconDrawable="@drawable/ic_person"
-        app:startIconTint="@color/primary_color">
+        app:startIconTint="@color/secondary_color">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/full_name_et"
@@ -55,18 +55,18 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="30dp"
         android:hint="Email"
-        app:boxStrokeColor="@color/secondary_color"
-        app:boxStrokeErrorColor="@color/primary_color"
+        app:boxStrokeColor="@color/primary_color"
+        app:boxStrokeErrorColor="@color/secondary_color"
         app:endIconMode="clear_text"
         app:errorEnabled="true"
         app:errorIconDrawable="@drawable/ic_error"
-        app:errorIconTint="@color/primary_color"
-        app:hintTextColor="@color/secondary_color"
+        app:errorIconTint="@color/secondary_color"
+        app:hintTextColor="@color/primary_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/full_name_input_et"
         app:startIconDrawable="@drawable/ic_email"
-        app:startIconTint="@color/primary_color">
+        app:startIconTint="@color/secondary_color">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/email_et"
@@ -87,20 +87,20 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="30dp"
         android:hint="Password"
-        app:boxStrokeColor="@color/secondary_color"
-        app:boxStrokeErrorColor="@color/primary_color"
+        app:boxStrokeColor="@color/primary_color"
+        app:boxStrokeErrorColor="@color/secondary_color"
         app:counterEnabled="true"
         app:counterMaxLength="10"
         app:endIconMode="password_toggle"
         app:errorEnabled="true"
         app:errorIconDrawable="@drawable/ic_error"
-        app:errorIconTint="@color/primary_color"
-        app:hintTextColor="@color/secondary_color"
+        app:errorIconTint="@color/secondary_color"
+        app:hintTextColor="@color/primary_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/email_input_et"
         app:startIconDrawable="@drawable/ic_lock"
-        app:startIconTint="@color/primary_color">
+        app:startIconTint="@color/secondary_color">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/password_et"
@@ -121,20 +121,20 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="30dp"
         android:hint="Repeat Password"
-        app:boxStrokeColor="@color/secondary_color"
-        app:boxStrokeErrorColor="@color/primary_color"
+        app:boxStrokeColor="@color/primary_color"
+        app:boxStrokeErrorColor="@color/secondary_color"
         app:counterEnabled="true"
         app:counterMaxLength="10"
         app:endIconMode="password_toggle"
         app:errorEnabled="true"
         app:errorIconDrawable="@drawable/ic_error"
-        app:errorIconTint="@color/primary_color"
-        app:hintTextColor="@color/secondary_color"
+        app:errorIconTint="@color/secondary_color"
+        app:hintTextColor="@color/primary_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/password_input_et"
         app:startIconDrawable="@drawable/ic_lock"
-        app:startIconTint="@color/primary_color">
+        app:startIconTint="@color/secondary_color">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/repeat_password_et"
@@ -152,7 +152,7 @@
         android:layout_width="250dp"
         android:layout_height="55dp"
         android:layout_marginTop="20dp"
-        android:backgroundTint="@color/primary_color"
+        android:backgroundTint="@color/secondary_color"
         android:fontFamily="sans-serif-medium"
         android:text="Sign Up"
         android:textAllCaps="false"
@@ -162,7 +162,7 @@
         app:layout_constraintEnd_toEndOf="@+id/password_input_et"
         app:layout_constraintStart_toStartOf="@+id/password_input_et"
         app:layout_constraintTop_toBottomOf="@id/repeat_password_input_et"
-        app:strokeColor="@color/secondary_color"
+        app:strokeColor="@color/primary_color"
         app:strokeWidth="3dp" />
 
     <LinearLayout
@@ -197,7 +197,7 @@
             android:layout_weight="1"
             android:fontFamily="sans-serif"
             android:text="Login"
-            android:textColor="@color/secondary_color"
+            android:textColor="@color/primary_color"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@id/password_input_et"
@@ -211,7 +211,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
         android:text="OR"
-        android:textColor="@color/primary_color"
+        android:textColor="@color/secondary_color"
         android:textSize="20sp"
         android:textStyle="bold"
         android:visibility="gone"
@@ -225,7 +225,7 @@
         android:layout_width="wrap_content"
         android:layout_height="55dp"
         android:layout_marginBottom="30dp"
-        android:backgroundTint="@color/secondary_color"
+        android:backgroundTint="@color/primary_color"
         android:drawableEnd="@drawable/ic_google"
         android:drawablePadding="10dp"
         android:fontFamily="sans-serif-medium"
@@ -240,7 +240,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:strokeColor="@color/primary_color"
+        app:strokeColor="@color/secondary_color"
         app:strokeWidth="2dp" />
 
 

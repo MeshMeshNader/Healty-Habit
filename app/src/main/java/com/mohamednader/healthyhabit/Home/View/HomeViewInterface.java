@@ -13,9 +13,11 @@ public interface HomeViewInterface {
     public void showListCategoriesNames(List<Meal> list);
     public void showListAreasNames(List<Meal> list);
     public void showListIngredientsNames(List<Meal> list);
-    public void showMealsByCategory(List<Meal> list);
     public void showMealsByArea(List<Meal> list);
     public void showMealsByIngredient(List<Meal> list);
     public void showListCategoriesDetails(List<Category> list);
+
+    void showLoading();
+    void hideLoading();
 
 }
