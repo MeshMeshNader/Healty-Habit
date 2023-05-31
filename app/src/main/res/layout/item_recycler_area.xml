@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:gravity="center"
-            android:text="Area" />
+            android:text="@string/dot_loading" />
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

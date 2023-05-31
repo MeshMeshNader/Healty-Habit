@@ -3,7 +3,6 @@ package com.mohamednader.healthyhabit.Category.View;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +28,6 @@ import com.mohamednader.healthyhabit.Models.Repository;
 import com.mohamednader.healthyhabit.Network.ApiClient;
 import com.mohamednader.healthyhabit.R;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -110,7 +108,6 @@ public class CategoryFragment extends Fragment implements CategoryViewInterface,
             categoryPresenter.getMealsByCategory(getArguments().getString("EXTRA_DATA_NAME"));
         }
     }
-
 
 
     @Override

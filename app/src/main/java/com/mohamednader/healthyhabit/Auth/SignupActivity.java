@@ -24,15 +24,13 @@ import com.mohamednader.healthyhabit.R;
 
 public class SignupActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private final String TAG = "SignupActivity_TAG";
+    ProgressDialog mLoading;
     private TextInputLayout fullNameInputLayout, emailInputLayout, passwordInputLayout, repeatPasswordInputLayout;
     private EditText fullNameEditText, emailEditText, passwordEditText, repeatPasswordEditText;
     private Button signupButton;
     private TextView loginTextView;
-
     private FirebaseAuth mAuth;
-    private final String TAG = "SignupActivity_TAG";
-
-    ProgressDialog mLoading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -175,7 +173,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
             Toast.makeText(this, "Please Repeat Your Password", Toast.LENGTH_SHORT).show();
             repeatPasswordEditText.setError("Please Repeat You Password");
             return false;
-        }else if (!passwordEditText.getText().toString().equals(repeatPasswordEditText.getText().toString())) {
+        } else if (!passwordEditText.getText().toString().equals(repeatPasswordEditText.getText().toString())) {
             repeatPasswordEditText.setError("Password Don't Match");
             return false;
         }
@@ -262,7 +260,6 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
 
     }
 */
-
 
 
 }

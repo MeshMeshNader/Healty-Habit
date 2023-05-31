@@ -15,6 +15,13 @@
         android:theme="@style/Theme.HealthyHabit"
         tools:targetApi="31">
         <activity
+            android:name=".Search.View.SearchActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".Area.View.AreaActivity"
             android:exported="false">
             <meta-data

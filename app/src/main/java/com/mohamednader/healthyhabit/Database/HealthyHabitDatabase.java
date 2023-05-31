@@ -8,7 +8,7 @@ import androidx.room.RoomDatabase;
 public abstract class HealthyHabitDatabase extends RoomDatabase {
 
     private static HealthyHabitDatabase healthyHabitDatabase = null;
-    public abstract HealthyHabitDAO healthyHabitDAO();
+
     public static synchronized HealthyHabitDatabase getInstance(Context context) {
         if (healthyHabitDatabase == null) {
             healthyHabitDatabase = Room.databaseBuilder(context.getApplicationContext(), HealthyHabitDatabase.class, "HealthyHabitDB")
@@ -16,6 +16,8 @@ public abstract class HealthyHabitDatabase extends RoomDatabase {
         }
         return healthyHabitDatabase;
     }
+
+    public abstract HealthyHabitDAO healthyHabitDAO();
 
 
 }

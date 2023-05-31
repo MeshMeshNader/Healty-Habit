@@ -87,8 +87,8 @@ public class SwipeMealAdapter extends BaseAdapter {
     }*/
 
 
-    private List<Meal> meals;
     Context context;
+    private List<Meal> meals;
 
     public SwipeMealAdapter(Context context, List<Meal> data) {
         this.meals = data;

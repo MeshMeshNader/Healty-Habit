@@ -1,10 +1,9 @@
-
 package com.mohamednader.healthyhabit.Models.CategoriesModels;
 
- import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
- import java.io.Serializable;
+import java.io.Serializable;
 
 public class Category implements Serializable {
 

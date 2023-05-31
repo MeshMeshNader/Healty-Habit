@@ -1,4 +1,3 @@
-
 package com.mohamednader.healthyhabit.Models.MealsModels;
 
 import com.google.gson.annotations.Expose;

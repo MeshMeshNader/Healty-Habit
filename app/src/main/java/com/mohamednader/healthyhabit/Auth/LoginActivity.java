@@ -35,14 +35,13 @@ import com.mohamednader.healthyhabit.R;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private static final int RC_SIGN_IN = 100;
+    private final String TAG = "LoginActivity_TAG";
     private TextInputLayout emailInputLayout, passwordInputLayout;
     private EditText emailEditText, passwordEditText;
     private Button loginButton, googleButton, guestButton;
     private TextView forgetPasswordTextView, signUpTextView;
     private ProgressDialog mLoading;
-
-    private final String TAG = "LoginActivity_TAG";
-    private static final int RC_SIGN_IN = 100;
     private GoogleSignInClient mGoogleSignInClient;
     private Boolean emailAddressChecker;
 
@@ -119,11 +118,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String input = String.valueOf(s);
-                if(input.length() < 8){
+                if (input.length() < 8) {
                     passwordInputLayout.setError("Short Password! Make it Longer!");
-                }else if(input.length() > 10){
+                } else if (input.length() > 10) {
                     passwordInputLayout.setError("Short Password! Make it Shorter!");
-                }else{
+                } else {
                     passwordInputLayout.setError(null);
                 }
             }

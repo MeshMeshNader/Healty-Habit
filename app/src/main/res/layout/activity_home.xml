@@ -132,8 +132,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:padding="10dp"
-                    app:stack_size="5"
-                    />
+                    app:stack_size="5" />
             </RelativeLayout>
 
 

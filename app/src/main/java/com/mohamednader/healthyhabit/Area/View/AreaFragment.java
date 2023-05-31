@@ -1,16 +1,7 @@
 package com.mohamednader.healthyhabit.Area.View;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,11 +10,17 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
 import com.mohamednader.healthyhabit.Adapters.MealsAdapter;
 import com.mohamednader.healthyhabit.Adapters.OnMealClickListener;
 import com.mohamednader.healthyhabit.Area.Presenter.AreaPresenter;
-import com.mohamednader.healthyhabit.Category.Presenter.CategoryPresenter;
 import com.mohamednader.healthyhabit.MealDetails.View.MealDetailsActivity;
 import com.mohamednader.healthyhabit.Models.MealsModels.Meal;
 import com.mohamednader.healthyhabit.Models.Repository;
@@ -51,7 +48,6 @@ public class AreaFragment extends Fragment implements AreaViewInterface, OnMealC
     public AreaFragment() {
         // Required empty public constructor
     }
-
 
 
     @Override
@@ -102,7 +98,6 @@ public class AreaFragment extends Fragment implements AreaViewInterface, OnMealC
             areaPresenter.getMealsByArea(getArguments().getString("EXTRA_DATA_NAME"));
         }
     }
-
 
 
     @Override

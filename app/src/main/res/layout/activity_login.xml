@@ -36,8 +36,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/logo"
         app:startIconDrawable="@drawable/ic_email"
-        app:startIconTint="@color/secondary_color"
-        >
+        app:startIconTint="@color/secondary_color">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/email_et"
@@ -60,19 +59,18 @@
         android:hint="@string/password"
         app:boxStrokeColor="@color/primary_color"
         app:boxStrokeErrorColor="@color/secondary_color"
+        app:counterEnabled="true"
+        app:counterMaxLength="10"
         app:endIconMode="password_toggle"
         app:errorEnabled="true"
         app:errorIconDrawable="@drawable/ic_error"
         app:errorIconTint="@color/secondary_color"
-        app:counterEnabled="true"
-        app:counterMaxLength="10"
         app:hintTextColor="@color/primary_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/email_input_et"
         app:startIconDrawable="@drawable/ic_lock"
-        app:startIconTint="@color/secondary_color"
-        >
+        app:startIconTint="@color/secondary_color">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/password_et"
@@ -91,7 +89,7 @@
         android:layout_marginTop="20dp"
         android:backgroundTint="@color/secondary_color"
         android:fontFamily="sans-serif-medium"
-        android:text="@string/lgoin"
+        android:text="@string/login"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="16sp"

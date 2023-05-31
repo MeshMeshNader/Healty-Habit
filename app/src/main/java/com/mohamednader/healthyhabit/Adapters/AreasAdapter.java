@@ -22,8 +22,8 @@ import java.util.List;
 public class AreasAdapter extends RecyclerView.Adapter<AreasAdapter.ViewHolder> {
 
 
-    private List<Meal> areas = new ArrayList<>();
     private static final String TAG = "Areas_Adapter";
+    private List<Meal> areas = new ArrayList<>();
     private OnAreaClickListener onAreaClickListener;
     private Context context;
 
@@ -57,7 +57,7 @@ public class AreasAdapter extends RecyclerView.Adapter<AreasAdapter.ViewHolder> 
         holder.areaCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onAreaClickListener.onAreaClick(areas , pos);
+                onAreaClickListener.onAreaClick(areas, pos);
             }
         });
     }

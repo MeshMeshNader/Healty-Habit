@@ -21,7 +21,7 @@ public interface RemoteSource {
 
     public void startCallToGetListCategoriesDetails(NetworkDelegateAPI networkDelegate);
 
-   // public void startCallFirebaseLogin(NetworkDelegateAPI networkDelegate, String email, String password);
+    // public void startCallFirebaseLogin(NetworkDelegateAPI networkDelegate, String email, String password);
 
 
 }

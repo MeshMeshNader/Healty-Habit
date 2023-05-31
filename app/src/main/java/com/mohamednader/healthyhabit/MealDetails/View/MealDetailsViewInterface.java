@@ -7,7 +7,9 @@ import java.util.List;
 public interface MealDetailsViewInterface {
 
     public void showMealDetailsByID(List<Meal> list);
+
     public void showLoading();
+
     public void hideLoading();
 
 }

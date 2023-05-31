@@ -20,15 +20,15 @@ import java.util.List;
 
 public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolder> {
 
+    private static final String TAG = "Categories_Adapter";
     private Context context;
     private List<Category> categories = new ArrayList<>();
     private OnCategoryClickListener onCategoryClickListener;
-    private static final String TAG = "Categories_Adapter";
 
     public CategoriesAdapter(Context context, List<Category> categories, OnCategoryClickListener onCategoryClickListener) {
         this.context = context;
         this.categories = categories;
-        this.onCategoryClickListener= onCategoryClickListener;
+        this.onCategoryClickListener = onCategoryClickListener;
     }
 
     public void setList(List<Category> categories) {

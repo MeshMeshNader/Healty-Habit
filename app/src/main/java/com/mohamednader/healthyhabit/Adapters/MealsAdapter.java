@@ -14,15 +14,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.mohamednader.healthyhabit.Models.MealsModels.Meal;
 import com.mohamednader.healthyhabit.R;
-import com.mohamednader.healthyhabit.Utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MealsAdapter extends RecyclerView.Adapter<MealsAdapter.ViewHolder>{
+public class MealsAdapter extends RecyclerView.Adapter<MealsAdapter.ViewHolder> {
 
-    private List<Meal> meals = new ArrayList<>();
     private static final String TAG = "Meals_Adapter";
+    private List<Meal> meals = new ArrayList<>();
     private OnMealClickListener onMealClickListener;
     private Context context;
 

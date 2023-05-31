@@ -1,7 +1,6 @@
 package com.mohamednader.healthyhabit.Category.Presenter;
 
 import com.mohamednader.healthyhabit.Category.View.CategoryViewInterface;
-import com.mohamednader.healthyhabit.Home.View.HomeViewInterface;
 import com.mohamednader.healthyhabit.Models.CategoriesModels.Category;
 import com.mohamednader.healthyhabit.Models.MealsModels.Meal;
 import com.mohamednader.healthyhabit.Models.RepositoryInterface;
@@ -9,7 +8,7 @@ import com.mohamednader.healthyhabit.Network.NetworkDelegateAPI;
 
 import java.util.List;
 
-public class CategoryPresenter implements CategoryPresenterInterface{
+public class CategoryPresenter implements CategoryPresenterInterface {
 
 
     private CategoryViewInterface viewInterface;

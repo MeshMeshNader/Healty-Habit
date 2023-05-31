@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,6 +26,7 @@ import com.mohamednader.healthyhabit.Models.MealsModels.Meal;
 import com.mohamednader.healthyhabit.Models.Repository;
 import com.mohamednader.healthyhabit.Network.ApiClient;
 import com.mohamednader.healthyhabit.R;
+import com.mohamednader.healthyhabit.Search.View.SearchActivity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -35,22 +37,21 @@ import link.fls.swipestack.SwipeStack;
 public class HomeActivity extends AppCompatActivity implements HomeViewInterface,
         OnAreaClickListener, OnCategoryClickListener, OnMealClickListener, SwipeStack.SwipeStackListener {
 
-    private final String TAG = "HomeActivity_TAG";
-    private HomePresenter homePresenter;
-
     public static final String EXTRA_MEAL_ID = "mealID";
     public static final String EXTRA_CATEGORY = "category";
     public static final String EXTRA_AREA = "area";
     public static final String EXTRA_POSITION = "position";
     public static final String EXTRA_DETAIL = "detail";
-
+    private final String TAG = "HomeActivity_TAG";
     RecyclerView recyclerViewAreas, recyclerViewCategories;
     AreasAdapter areasAdapter;
+    CardView searchCard;
     CategoriesAdapter categoriesAdapter;
     SwipeMealAdapter swipeMealAdapter;
     SwipeStack swipeStackView;
     List<Meal> stackMeals;
     int stackCounter = 0;
+    private HomePresenter homePresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +88,15 @@ public class HomeActivity extends AppCompatActivity implements HomeViewInterface
         stackMeals = new ArrayList<>();
         recyclerViewAreas = findViewById(R.id.viewPagerHeader);
         recyclerViewCategories = findViewById(R.id.recyclerCategory);
+        searchCard = findViewById(R.id.cardSearch);
+        searchCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, SearchActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
     }
 
@@ -129,11 +139,6 @@ public class HomeActivity extends AppCompatActivity implements HomeViewInterface
         }
     }
 
-    @Override
-    public void showListCategoriesNames(List<Meal> list) {
-        for (int i = 0; i < list.size(); i++)
-            Log.i(TAG, "showListCategoriesNames: " + list.get(i).getStrCategory());
-    }
 
     @Override
     public void showListAreasNames(List<Meal> list) {
@@ -143,24 +148,6 @@ public class HomeActivity extends AppCompatActivity implements HomeViewInterface
         areasAdapter.notifyDataSetChanged();
     }
 
-    @Override
-    public void showListIngredientsNames(List<Meal> list) {
-        for (int i = 0; i < list.size(); i++)
-            Log.i(TAG, "showListIngredientsNames: " + list.get(i).getStrIngredientItem());
-    }
-
-
-    @Override
-    public void showMealsByArea(List<Meal> list) {
-        for (int i = 0; i < list.size(); i++)
-            Log.i(TAG, "showMealsByArea: " + list.get(i).getStrMeal());
-    }
-
-    @Override
-    public void showMealsByIngredient(List<Meal> list) {
-        for (int i = 0; i < list.size(); i++)
-            Log.i(TAG, "showMealsByIngredient: " + list.get(i).getStrMeal());
-    }
 
     @Override
     public void showListCategoriesDetails(List<Category> list) {

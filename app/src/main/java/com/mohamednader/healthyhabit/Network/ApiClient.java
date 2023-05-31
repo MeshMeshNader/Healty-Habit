@@ -11,11 +11,11 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class ApiClient implements RemoteSource{
+public class ApiClient implements RemoteSource {
 
-    ApiService apiService;
-    private static ApiClient apiClient = null;
     private static final String BASE_URL = "https://www.themealdb.com/api/json/v1/1/";
+    private static ApiClient apiClient = null;
+    ApiService apiService;
 
     private ApiClient() {
         Gson gson = new GsonBuilder().create();
@@ -26,8 +26,8 @@ public class ApiClient implements RemoteSource{
         apiService = retrofit.create(ApiService.class);
     }
 
-    public static synchronized ApiClient getInstance(){
-        if (apiClient == null){
+    public static synchronized ApiClient getInstance() {
+        if (apiClient == null) {
             apiClient = new ApiClient();
         }
         return apiClient;
@@ -35,11 +35,11 @@ public class ApiClient implements RemoteSource{
 
     @Override
     public void startCallToGetMealsByFirstLetter(NetworkDelegateAPI networkDelegate, Character character) {
-        Callback<Meals> responseCallBack = new Callback<Meals>(){
+        Callback<Meals> responseCallBack = new Callback<Meals>() {
 
             @Override
             public void onResponse(Call<Meals> call, Response<Meals> response) {
-                if (response.isSuccessful()){
+                if (response.isSuccessful()) {
                     networkDelegate.onSuccessResponseMeal(response.body().getMeals());
                 }
             }
@@ -56,11 +56,11 @@ public class ApiClient implements RemoteSource{
 
     @Override
     public void startCallToGetRandomMeal(NetworkDelegateAPI networkDelegate) {
-        Callback<Meals> responseCallBack = new Callback<Meals>(){
+        Callback<Meals> responseCallBack = new Callback<Meals>() {
 
             @Override
             public void onResponse(Call<Meals> call, Response<Meals> response) {
-                if (response.isSuccessful()){
+                if (response.isSuccessful()) {
                     networkDelegate.onSuccessResponseMeal(response.body().getMeals());
                 }
             }
@@ -77,11 +77,11 @@ public class ApiClient implements RemoteSource{
 
     @Override
     public void startCallToGetMealDetailsByID(NetworkDelegateAPI networkDelegate, int id) {
-        Callback<Meals> responseCallBack = new Callback<Meals>(){
+        Callback<Meals> responseCallBack = new Callback<Meals>() {
 
             @Override
             public void onResponse(Call<Meals> call, Response<Meals> response) {
-                if (response.isSuccessful()){
+                if (response.isSuccessful()) {
                     networkDelegate.onSuccessResponseMeal(response.body().getMeals());
                 }
             }
@@ -98,11 +98,11 @@ public class ApiClient implements RemoteSource{
 
     @Override
     public void startCallToGetListCategoriesNames(NetworkDelegateAPI networkDelegate) {
-        Callback<Meals> responseCallBack = new Callback<Meals>(){
+        Callback<Meals> responseCallBack = new Callback<Meals>() {
 
             @Override
             public void onResponse(Call<Meals> call, Response<Meals> response) {
-                if (response.isSuccessful()){
+                if (response.isSuccessful()) {
                     networkDelegate.onSuccessResponseMeal(response.body().getMeals());
                 }
             }
@@ -118,12 +118,12 @@ public class ApiClient implements RemoteSource{
     }
 
     @Override
-    public void startCallToGetListAreasNames(NetworkDelegateAPI networkDelegate ) {
-        Callback<Meals> responseCallBack = new Callback<Meals>(){
+    public void startCallToGetListAreasNames(NetworkDelegateAPI networkDelegate) {
+        Callback<Meals> responseCallBack = new Callback<Meals>() {
 
             @Override
             public void onResponse(Call<Meals> call, Response<Meals> response) {
-                if (response.isSuccessful()){
+                if (response.isSuccessful()) {
                     networkDelegate.onSuccessResponseMeal(response.body().getMeals());
                 }
             }
@@ -139,12 +139,12 @@ public class ApiClient implements RemoteSource{
     }
 
     @Override
-    public void startCallToGetListIngredientsNames(NetworkDelegateAPI networkDelegate ) {
-        Callback<Meals> responseCallBack = new Callback<Meals>(){
+    public void startCallToGetListIngredientsNames(NetworkDelegateAPI networkDelegate) {
+        Callback<Meals> responseCallBack = new Callback<Meals>() {
 
             @Override
             public void onResponse(Call<Meals> call, Response<Meals> response) {
-                if (response.isSuccessful()){
+                if (response.isSuccessful()) {
                     networkDelegate.onSuccessResponseMeal(response.body().getMeals());
                 }
             }
@@ -161,11 +161,11 @@ public class ApiClient implements RemoteSource{
 
     @Override
     public void startCallToGetMealsByCategory(NetworkDelegateAPI networkDelegate, String category) {
-        Callback<Meals> responseCallBack = new Callback<Meals>(){
+        Callback<Meals> responseCallBack = new Callback<Meals>() {
 
             @Override
             public void onResponse(Call<Meals> call, Response<Meals> response) {
-                if (response.isSuccessful()){
+                if (response.isSuccessful()) {
                     networkDelegate.onSuccessResponseMeal(response.body().getMeals());
                 }
             }
@@ -182,11 +182,11 @@ public class ApiClient implements RemoteSource{
 
     @Override
     public void startCallToGetMealsByArea(NetworkDelegateAPI networkDelegate, String area) {
-        Callback<Meals> responseCallBack = new Callback<Meals>(){
+        Callback<Meals> responseCallBack = new Callback<Meals>() {
 
             @Override
             public void onResponse(Call<Meals> call, Response<Meals> response) {
-                if (response.isSuccessful()){
+                if (response.isSuccessful()) {
                     networkDelegate.onSuccessResponseMeal(response.body().getMeals());
                 }
             }
@@ -203,11 +203,11 @@ public class ApiClient implements RemoteSource{
 
     @Override
     public void startCallToGetMealsByIngredient(NetworkDelegateAPI networkDelegate, String ingredient) {
-        Callback<Meals> responseCallBack = new Callback<Meals>(){
+        Callback<Meals> responseCallBack = new Callback<Meals>() {
 
             @Override
             public void onResponse(Call<Meals> call, Response<Meals> response) {
-                if (response.isSuccessful()){
+                if (response.isSuccessful()) {
                     networkDelegate.onSuccessResponseMeal(response.body().getMeals());
                 }
             }
@@ -227,7 +227,7 @@ public class ApiClient implements RemoteSource{
         Callback<Categories> responseCallBack = new Callback<Categories>() {
             @Override
             public void onResponse(Call<Categories> call, Response<Categories> response) {
-                if (response.isSuccessful()){
+                if (response.isSuccessful()) {
                     networkDelegate.onSuccessResponseCategory(response.body().getCategories());
                 }
             }

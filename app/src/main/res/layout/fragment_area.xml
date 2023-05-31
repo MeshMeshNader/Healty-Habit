@@ -54,13 +54,13 @@
                         android:layout_toEndOf="@id/imageArea"
                         android:layout_toRightOf="@id/imageArea"
                         android:ellipsize="end"
+                        android:fontFamily="sans-serif-black"
                         android:maxLines="1"
                         android:padding="16dp"
-                        android:text="meal_categories"
+                        android:text="@string/dot_loading"
                         android:textColor="@color/white"
-                        android:textStyle="bold"
-                        android:fontFamily="sans-serif-black"
-                        android:textSize="20sp" />
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
 

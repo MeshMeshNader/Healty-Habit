@@ -59,30 +59,6 @@ public class HomePresenter implements HomePresenterInterface {
         });
     }
 
-
-    @Override
-    public void getListCategoriesNames() {
-
-
-
-        repositoryInterface.startCallToGetListCategoriesNames(new NetworkDelegateAPI() {
-            @Override
-            public void onSuccessResponseMeal(List<Meal> list) {
-                viewInterface.showListCategoriesNames(list);
-            }
-
-            @Override
-            public void onSuccessResponseCategory(List<Category> list) {
-
-            }
-
-            @Override
-            public void onFailureResponse(String errorMsg) {
-
-            }
-        });
-    }
-
     @Override
     public void getListAreasNames() {
 
@@ -105,66 +81,6 @@ public class HomePresenter implements HomePresenterInterface {
 
             }
         });
-    }
-
-    @Override
-    public void getListIngredientsNames() {
-        repositoryInterface.startCallToGetListIngredientsNames(new NetworkDelegateAPI() {
-            @Override
-            public void onSuccessResponseMeal(List<Meal> list) {
-                viewInterface.showListIngredientsNames(list);
-            }
-
-            @Override
-            public void onSuccessResponseCategory(List<Category> list) {
-
-            }
-
-            @Override
-            public void onFailureResponse(String errorMsg) {
-
-            }
-        });
-    }
-
-    @Override
-    public void getMealsByArea(String area) {
-        repositoryInterface.startCallToGetMealsByArea(new NetworkDelegateAPI() {
-            @Override
-            public void onSuccessResponseMeal(List<Meal> list) {
-                viewInterface.showMealsByArea(list);
-            }
-
-            @Override
-            public void onSuccessResponseCategory(List<Category> list) {
-
-            }
-
-            @Override
-            public void onFailureResponse(String errorMsg) {
-
-            }
-        }, area);
-    }
-
-    @Override
-    public void getMealsByIngredient(String ingredient) {
-        repositoryInterface.startCallToGetMealsByIngredient(new NetworkDelegateAPI() {
-            @Override
-            public void onSuccessResponseMeal(List<Meal> list) {
-                viewInterface.showMealsByIngredient(list);
-            }
-
-            @Override
-            public void onSuccessResponseCategory(List<Category> list) {
-
-            }
-
-            @Override
-            public void onFailureResponse(String errorMsg) {
-
-            }
-        }, ingredient);
     }
 
     @Override

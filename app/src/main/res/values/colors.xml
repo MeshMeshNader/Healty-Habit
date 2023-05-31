@@ -4,11 +4,12 @@
     <color name="primary_color_variant">#029108</color>
     <color name="secondary_color">#FF5722</color>
     <color name="secondary_color_variant">#C2431B</color>
-    <color name="secondary_color_tran">#C8C2431B</color>
+    <color name="secondary_color_tran">#C3C2431B</color>
     <color name="accent_color">#F1AE03</color>
     <color name="background_color">#F4F7F7</color>
     <color name="text_color">#212121</color>
     <color name="transparent">#00000000</color>
+    <color name="gray_transparent">#7E908B8B</color>
     <color name="red">#FF0000</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>

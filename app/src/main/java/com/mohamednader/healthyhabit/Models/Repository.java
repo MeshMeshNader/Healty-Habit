@@ -2,28 +2,21 @@ package com.mohamednader.healthyhabit.Models;
 
 import android.content.Context;
 
-import androidx.annotation.NonNull;
-
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.mohamednader.healthyhabit.Network.NetworkDelegateAPI;
 import com.mohamednader.healthyhabit.Network.RemoteSource;
 import com.mohamednader.healthyhabit.R;
 
-public class Repository implements RepositoryInterface{
-
-    Context context;
-    RemoteSource remoteSource;
-    private static Repository repo = null;
+public class Repository implements RepositoryInterface {
 
     //For Google Login and SignUp
     private static final int RC_SIGN_IN = 100;
+    private static Repository repo = null;
+    Context context;
+    RemoteSource remoteSource;
     private GoogleSignInClient mGoogleSignInClient;
     private Boolean emailAddressChecker;
     private FirebaseAuth mAuth;
@@ -83,7 +76,7 @@ public class Repository implements RepositoryInterface{
 
     @Override
     public void startCallToGetMealsByArea(NetworkDelegateAPI networkDelegate, String area) {
-        remoteSource.startCallToGetMealsByArea(networkDelegate,area);
+        remoteSource.startCallToGetMealsByArea(networkDelegate, area);
     }
 
     @Override
@@ -128,8 +121,6 @@ public class Repository implements RepositoryInterface{
 ////            mLoading.dismiss();
 //        }
 //    }
-
-
 
 
 }
