@@ -2,13 +2,14 @@ package com.mohamednader.healthyhabit.Models;
 
 import android.content.Context;
 
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.firebase.auth.FirebaseAuth;
+import androidx.lifecycle.LiveData;
+
+import com.mohamednader.healthyhabit.Database.LocalSource;
+import com.mohamednader.healthyhabit.Models.MealsModels.Meal;
 import com.mohamednader.healthyhabit.Network.NetworkDelegateAPI;
 import com.mohamednader.healthyhabit.Network.RemoteSource;
-import com.mohamednader.healthyhabit.R;
+
+import java.util.List;
 
 public class Repository implements RepositoryInterface {
 
@@ -17,23 +18,24 @@ public class Repository implements RepositoryInterface {
     private static Repository repo = null;
     Context context;
     RemoteSource remoteSource;
-    private GoogleSignInClient mGoogleSignInClient;
-    private Boolean emailAddressChecker;
-    private FirebaseAuth mAuth;
+    LocalSource localSource;
+//    private GoogleSignInClient mGoogleSignInClient;
+//    private Boolean emailAddressChecker;
+//    private FirebaseAuth mAuth;
 
-    private Repository(Context context, RemoteSource remoteSource) {
+    private Repository(Context context, RemoteSource remoteSource, LocalSource localSource) {
         this.context = context;
         this.remoteSource = remoteSource;
-
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken(context.getString(R.string.default_web_client_id)).requestEmail().build();
-        mGoogleSignInClient = GoogleSignIn.getClient(context, gso);
+        this.localSource = localSource;
+//        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken(context.getString(R.string.default_web_client_id)).requestEmail().build();
+//        mGoogleSignInClient = GoogleSignIn.getClient(context, gso);
 
 
     }
 
-    public static Repository getInstance(Context context, RemoteSource remoteSource) {
+    public static Repository getInstance(Context context, RemoteSource remoteSource, LocalSource localSource) {
         if (repo == null) {
-            repo = new Repository(context, remoteSource);
+            repo = new Repository(context, remoteSource, localSource);
         }
         return repo;
     }
@@ -87,6 +89,21 @@ public class Repository implements RepositoryInterface {
     @Override
     public void startCallToGetListCategoriesDetails(NetworkDelegateAPI networkDelegate) {
         remoteSource.startCallToGetListCategoriesDetails(networkDelegate);
+    }
+
+    @Override
+    public LiveData<List<Meal>> getStoredMeals() {
+        return localSource.getStoredMeals();
+    }
+
+    @Override
+    public void insertMeal(Meal meal) {
+        localSource.insertMeal(meal);
+    }
+
+    @Override
+    public void deleteMeal(Meal meal) {
+        localSource.deleteMeal(meal);
     }
 
 //    @Override

@@ -12,4 +12,8 @@ public interface MealDetailsViewInterface {
 
     public void hideLoading();
 
+
+        public void onAddedToFavSuccessfully();
+
+
 }

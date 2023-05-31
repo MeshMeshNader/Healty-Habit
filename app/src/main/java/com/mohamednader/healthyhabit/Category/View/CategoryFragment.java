@@ -22,11 +22,13 @@ import com.bumptech.glide.Glide;
 import com.mohamednader.healthyhabit.Adapters.MealsAdapter;
 import com.mohamednader.healthyhabit.Adapters.OnMealClickListener;
 import com.mohamednader.healthyhabit.Category.Presenter.CategoryPresenter;
+import com.mohamednader.healthyhabit.Database.ConcreteLocalSource;
 import com.mohamednader.healthyhabit.MealDetails.View.MealDetailsActivity;
 import com.mohamednader.healthyhabit.Models.MealsModels.Meal;
 import com.mohamednader.healthyhabit.Models.Repository;
 import com.mohamednader.healthyhabit.Network.ApiClient;
 import com.mohamednader.healthyhabit.R;
+import com.mohamednader.healthyhabit.Utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +46,7 @@ public class CategoryFragment extends Fragment implements CategoryViewInterface,
     CategoryPresenter categoryPresenter;
     CardView categoryCardView;
     AlertDialog.Builder descDialog;
+    Meal meal;
 
     public CategoryFragment() {
         // Required empty public constructor
@@ -80,7 +83,7 @@ public class CategoryFragment extends Fragment implements CategoryViewInterface,
     }
 
     private void recyclerViewConfig() {
-        mealsAdapter = new MealsAdapter(getActivity(), new ArrayList<>(), this);
+        mealsAdapter = new MealsAdapter(getActivity(), new ArrayList<>(), this, "Fav");
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         recyclerView.setClipToPadding(false);
         recyclerView.setAdapter(mealsAdapter);
@@ -103,7 +106,7 @@ public class CategoryFragment extends Fragment implements CategoryViewInterface,
                     .setMessage(getArguments().getString("EXTRA_DATA_DESC"));
 
             categoryPresenter = new CategoryPresenter(this,
-                    Repository.getInstance(getActivity(), ApiClient.getInstance()));
+                    Repository.getInstance(getActivity(), ApiClient.getInstance(), ConcreteLocalSource.getInstance(getActivity())));
 
             categoryPresenter.getMealsByCategory(getArguments().getString("EXTRA_DATA_NAME"));
         }
@@ -128,11 +131,6 @@ public class CategoryFragment extends Fragment implements CategoryViewInterface,
 
     }
 
-//    @Override
-//    public void onErrorLoading(String message) {
-//       // Utils.showDialogMessage(getActivity(), "Error ", message);
-//    }
-
     @Override
     public void onMealClick(int mealID) {
         //Toast.makeText(getActivity(), "You Clicked " + mealID, Toast.LENGTH_SHORT).show();
@@ -144,7 +142,18 @@ public class CategoryFragment extends Fragment implements CategoryViewInterface,
 
     @Override
     public void onFavMealClick(Meal meal) {
-        Toast.makeText(getActivity(), "You Clicked Fav " + meal.getStrMeal(), Toast.LENGTH_SHORT).show();
+        this.meal = meal;
+        categoryPresenter.addMealToFav(meal);
+    }
+
+    @Override
+    public void onDeleteMealClick(Meal meal) {
 
     }
+
+    @Override
+    public void onAddedToFavSuccessfully() {
+        Toast.makeText(getActivity(), meal.getStrMeal() + " Added To Fav! ", Toast.LENGTH_SHORT).show();
+    }
+
 }

@@ -24,11 +24,13 @@ public class MealsAdapter extends RecyclerView.Adapter<MealsAdapter.ViewHolder> 
     private List<Meal> meals = new ArrayList<>();
     private OnMealClickListener onMealClickListener;
     private Context context;
+    private String mode;
 
-    public MealsAdapter(Context context, List<Meal> meals, OnMealClickListener onMealClickListener) {
+    public MealsAdapter(Context context, List<Meal> meals, OnMealClickListener onMealClickListener, String mode) {
         this.meals = meals;
         this.context = context;
         this.onMealClickListener = onMealClickListener;
+        this.mode = mode;
     }
 
     public void setList(List<Meal> meals) {
@@ -40,7 +42,7 @@ public class MealsAdapter extends RecyclerView.Adapter<MealsAdapter.ViewHolder> 
     public MealsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup recyclerView, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(recyclerView.getContext());
         View view = layoutInflater.inflate(R.layout.item_recycler_meal, recyclerView, false);
-        MealsAdapter.ViewHolder viewHolder = new MealsAdapter.ViewHolder(view);
+        MealsAdapter.ViewHolder viewHolder = new MealsAdapter.ViewHolder(view, mode);
         return viewHolder;
     }
 
@@ -52,12 +54,22 @@ public class MealsAdapter extends RecyclerView.Adapter<MealsAdapter.ViewHolder> 
                 .load(meal.getStrMealThumb())
                 .into(holder.mealImg);
 
-        holder.mealFavImg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onMealClickListener.onFavMealClick(meal);
-            }
-        });
+        if(mode.equals("Fav")){
+            holder.mealFavImg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onMealClickListener.onFavMealClick(meal);
+                }
+            });
+        }else{
+            holder.mealFavImg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onMealClickListener.onDeleteMealClick(meal);
+                }
+            });
+        }
+
 
         holder.mealCardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,12 +90,17 @@ public class MealsAdapter extends RecyclerView.Adapter<MealsAdapter.ViewHolder> 
         TextView mealNameTxtView;
         CardView mealCardView;
 
-        public ViewHolder(@NonNull View view) {
+        public ViewHolder(@NonNull View view, String mode) {
             super(view);
             mealImg = view.findViewById(R.id.meal_thumb);
             mealFavImg = view.findViewById(R.id.meal_fav_img);
             mealNameTxtView = view.findViewById(R.id.meal_name);
             mealCardView = view.findViewById(R.id.meal_card_view);
+            if(mode.equals("Fav")){
+                mealFavImg.setImageResource(R.drawable.ic_add_fav);
+            }else{
+                mealFavImg.setImageResource(R.drawable.ic_delete);
+            }
         }
 
     }

@@ -6,6 +6,8 @@ public interface OnMealClickListener {
 
     public void onMealClick(int mealID);
 
+    public void onDeleteMealClick(Meal meal);
+
     public void onFavMealClick(Meal meal);
 
 }

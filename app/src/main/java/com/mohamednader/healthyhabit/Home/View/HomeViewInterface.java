@@ -19,4 +19,6 @@ public interface HomeViewInterface {
 
     void hideLoading();
 
+    public void onAddedToFavSuccessfully();
+
 }

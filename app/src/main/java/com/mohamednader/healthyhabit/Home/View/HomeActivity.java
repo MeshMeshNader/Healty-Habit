@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -19,6 +20,8 @@ import com.mohamednader.healthyhabit.Adapters.OnMealClickListener;
 import com.mohamednader.healthyhabit.Adapters.SwipeMealAdapter;
 import com.mohamednader.healthyhabit.Area.View.AreaActivity;
 import com.mohamednader.healthyhabit.Category.View.CategoryActivity;
+import com.mohamednader.healthyhabit.Database.ConcreteLocalSource;
+import com.mohamednader.healthyhabit.Favorites.View.FavActivity;
 import com.mohamednader.healthyhabit.Home.Presenter.HomePresenter;
 import com.mohamednader.healthyhabit.MealDetails.View.MealDetailsActivity;
 import com.mohamednader.healthyhabit.Models.CategoriesModels.Category;
@@ -52,6 +55,7 @@ public class HomeActivity extends AppCompatActivity implements HomeViewInterface
     List<Meal> stackMeals;
     int stackCounter = 0;
     private HomePresenter homePresenter;
+    Meal meal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +67,7 @@ public class HomeActivity extends AppCompatActivity implements HomeViewInterface
         recyclerViewConfig();
 
         homePresenter = new HomePresenter(this,
-                Repository.getInstance(this, ApiClient.getInstance()));
+                Repository.getInstance(this, ApiClient.getInstance(), ConcreteLocalSource.getInstance(this)));
 
 //        homePresenter.getMealsByLetterFilter('g');
 //        homePresenter.getRandomMeal();
@@ -118,7 +122,7 @@ public class HomeActivity extends AppCompatActivity implements HomeViewInterface
         recyclerViewCategories.setAdapter(categoriesAdapter);
 
 
-        swipeMealAdapter = new SwipeMealAdapter(this, new ArrayList<>());
+        swipeMealAdapter = new SwipeMealAdapter(this, new ArrayList<>(), this);
 
 
     }
@@ -170,7 +174,7 @@ public class HomeActivity extends AppCompatActivity implements HomeViewInterface
 
     @Override
     public void onAreaClick(List<Meal> list, int pos) {
-        Intent intent = new Intent(this, AreaActivity.class);
+        Intent intent = new Intent(this, FavActivity.class);
         intent.putExtra(EXTRA_AREA, (Serializable) list);
         intent.putExtra(EXTRA_POSITION, pos);
         startActivity(intent);
@@ -194,8 +198,19 @@ public class HomeActivity extends AppCompatActivity implements HomeViewInterface
     }
 
     @Override
-    public void onFavMealClick(Meal meal) {
+    public void onDeleteMealClick(Meal meal) {
 
+    }
+
+    @Override
+    public void onFavMealClick(Meal meal) {
+        this.meal = meal;
+        homePresenter.addMealToFav(meal);
+    }
+
+    @Override
+    public void onAddedToFavSuccessfully() {
+        Toast.makeText(this, meal.getStrMeal() + " Added To Fav! ", Toast.LENGTH_SHORT).show();
     }
 
     @Override

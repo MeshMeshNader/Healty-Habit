@@ -2,12 +2,18 @@ package com.mohamednader.healthyhabit.Database;
 
 import android.content.Context;
 
+import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import com.mohamednader.healthyhabit.Models.MealsModels.Meal;
+
+@Database(entities = {Meal.class}, version = 1 )
 public abstract class HealthyHabitDatabase extends RoomDatabase {
 
     private static HealthyHabitDatabase healthyHabitDatabase = null;
+
+    public abstract HealthyHabitDAO healthyHabitDAO();
 
     public static synchronized HealthyHabitDatabase getInstance(Context context) {
         if (healthyHabitDatabase == null) {
@@ -16,8 +22,6 @@ public abstract class HealthyHabitDatabase extends RoomDatabase {
         }
         return healthyHabitDatabase;
     }
-
-    public abstract HealthyHabitDAO healthyHabitDAO();
 
 
 }

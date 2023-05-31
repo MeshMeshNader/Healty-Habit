@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
+import com.mohamednader.healthyhabit.Database.ConcreteLocalSource;
 import com.mohamednader.healthyhabit.Models.MealsModels.Meal;
 import com.mohamednader.healthyhabit.Models.Repository;
 import com.mohamednader.healthyhabit.Network.ApiClient;
@@ -58,7 +59,7 @@ public class SearchFragmentRequest extends Fragment implements SearchFragmentReq
         arrayAdapter = new ArrayAdapter<String>(getContext(), R.layout.item_list_search, searchItems);
 
         searchFragmentRequestPresenter = new SearchFragmentRequestPresenter(this,
-                Repository.getInstance(getContext(), ApiClient.getInstance()), searchPresenter);
+                Repository.getInstance(getContext(), ApiClient.getInstance(), ConcreteLocalSource.getInstance(getActivity())), searchPresenter);
 
         searchFragmentRequestPresenter.getListAreasNames();
         searchFragmentRequestPresenter.getListIngredientsNames();

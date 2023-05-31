@@ -16,4 +16,6 @@ public interface SearchFragmentResponseViewInterface {
 
     public void hideLoading();
 
+    public void onAddedToFavSuccessfully();
+
 }

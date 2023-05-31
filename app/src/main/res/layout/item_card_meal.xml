@@ -43,7 +43,7 @@
             android:background="?android:attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:focusable="true"
-            android:src="@drawable/ic_favorite_border"
+            android:src="@drawable/ic_add_fav"
             tools:ignore="NewApi" />
 
         <TextView

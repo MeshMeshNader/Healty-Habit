@@ -43,4 +43,11 @@ public class AreaPresenter implements AreaPresenterInterface {
         }, area);
     }
 
+    @Override
+    public void addMealToFav(Meal meal) {
+
+        repositoryInterface.insertMeal(meal);
+        viewInterface.onAddedToFavSuccessfully();
+    }
+
 }

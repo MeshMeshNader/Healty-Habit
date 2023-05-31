@@ -12,5 +12,6 @@ public interface AreaViewInterface {
 
     public void hideLoading();
 
+    public void onAddedToFavSuccessfully();
 
 }

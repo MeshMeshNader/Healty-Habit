@@ -39,4 +39,12 @@ public class MealDetailsPresenter implements MealDetailsPresenterInterface {
             }
         }, id);
     }
+
+    @Override
+    public void addMealToFav(Meal meal) {
+
+        repositoryInterface.insertMeal(meal);
+        viewInterface.onAddedToFavSuccessfully();
+    }
+
 }

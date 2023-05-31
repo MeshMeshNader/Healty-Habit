@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.mohamednader.healthyhabit.Database.ConcreteLocalSource;
 import com.mohamednader.healthyhabit.Models.Repository;
 import com.mohamednader.healthyhabit.Network.ApiClient;
 import com.mohamednader.healthyhabit.R;
@@ -46,7 +47,7 @@ public class SearchActivity extends AppCompatActivity implements SearchViewInter
 
     private void intiViews() {
         searchPresenter = new SearchPresenter(this,
-                Repository.getInstance(this, ApiClient.getInstance()));
+                Repository.getInstance(this, ApiClient.getInstance(), ConcreteLocalSource.getInstance(this)));
 
         searchFragmentRequest = new SearchFragmentRequest(searchPresenter);
 

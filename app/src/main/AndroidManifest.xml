@@ -15,6 +15,27 @@
         android:theme="@style/Theme.HealthyHabit"
         tools:targetApi="31">
         <activity
+            android:name=".MainHome.MainHome"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Favorites.View.FavActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".OfflineMealsDetails.View.OfflineMealDetailsActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".Search.View.SearchActivity"
             android:exported="false">
             <meta-data

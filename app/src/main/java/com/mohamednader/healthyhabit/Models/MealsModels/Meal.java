@@ -1,184 +1,306 @@
 package com.mohamednader.healthyhabit.Models.MealsModels;
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
+@Entity(tableName = "meals")
 public class Meal implements Serializable {
+
 
     @SerializedName("idMeal")
     @Expose
+    @PrimaryKey()
+    @ColumnInfo(name = "idMeal")
+    @NonNull
     private String idMeal;
+
     @SerializedName("strMeal")
     @Expose
+    @ColumnInfo(name = "strMeal")
     private String strMeal;
+
     @SerializedName("strDrinkAlternate")
     @Expose
+    @ColumnInfo(name = "strDrinkAlternate")
     private String strDrinkAlternate;
+
     @SerializedName("strCategory")
     @Expose
+    @ColumnInfo(name = "strCategory")
     private String strCategory;
+
     @SerializedName("strArea")
     @Expose
+    @ColumnInfo(name = "strArea")
     private String strArea;
+
     @SerializedName("strInstructions")
     @Expose
+    @ColumnInfo(name = "strInstructions")
     private String strInstructions;
+
     @SerializedName("strMealThumb")
     @Expose
+    @ColumnInfo(name = "strMealThumb")
     private String strMealThumb;
+
     @SerializedName("strTags")
     @Expose
+    @ColumnInfo(name = "strTags")
     private String strTags;
+
     @SerializedName("strYoutube")
     @Expose
+    @ColumnInfo(name = "strYoutube")
     private String strYoutube;
+
     @SerializedName("strIngredient1")
     @Expose
+    @ColumnInfo(name = "strIngredient1")
     private String strIngredient1;
+
     @SerializedName("strIngredient2")
     @Expose
+    @ColumnInfo(name = "strIngredient2")
     private String strIngredient2;
+
     @SerializedName("strIngredient3")
     @Expose
+    @ColumnInfo(name = "strIngredient3")
     private String strIngredient3;
+
     @SerializedName("strIngredient4")
     @Expose
+    @ColumnInfo(name = "strIngredient4")
     private String strIngredient4;
+
     @SerializedName("strIngredient5")
     @Expose
+    @ColumnInfo(name = "strIngredient5")
     private String strIngredient5;
+
     @SerializedName("strIngredient6")
     @Expose
+    @ColumnInfo(name = "strIngredient6")
     private String strIngredient6;
+
     @SerializedName("strIngredient7")
     @Expose
+    @ColumnInfo(name = "strIngredient7")
     private String strIngredient7;
+
     @SerializedName("strIngredient8")
     @Expose
+    @ColumnInfo(name = "strIngredient8")
     private String strIngredient8;
+
     @SerializedName("strIngredient9")
     @Expose
+    @ColumnInfo(name = "strIngredient9")
     private String strIngredient9;
+
     @SerializedName("strIngredient10")
     @Expose
+    @ColumnInfo(name = "strIngredient10")
     private String strIngredient10;
+
     @SerializedName("strIngredient11")
     @Expose
+    @ColumnInfo(name = "strIngredient11")
     private String strIngredient11;
+
     @SerializedName("strIngredient12")
     @Expose
+    @ColumnInfo(name = "strIngredient12")
     private String strIngredient12;
+
     @SerializedName("strIngredient13")
     @Expose
+    @ColumnInfo(name = "strIngredient13")
     private String strIngredient13;
+
     @SerializedName("strIngredient14")
     @Expose
+    @ColumnInfo(name = "strIngredient14")
     private String strIngredient14;
+
     @SerializedName("strIngredient15")
     @Expose
+    @ColumnInfo(name = "strIngredient15")
     private String strIngredient15;
+
     @SerializedName("strIngredient16")
     @Expose
+    @ColumnInfo(name = "strIngredient16")
     private String strIngredient16;
+
     @SerializedName("strIngredient17")
     @Expose
+    @ColumnInfo(name = "strIngredient17")
     private String strIngredient17;
+
     @SerializedName("strIngredient18")
     @Expose
+    @ColumnInfo(name = "strIngredient18")
     private String strIngredient18;
+
     @SerializedName("strIngredient19")
     @Expose
+    @ColumnInfo(name = "strIngredient19")
     private String strIngredient19;
+
     @SerializedName("strIngredient20")
     @Expose
+    @ColumnInfo(name = "strIngredient20")
     private String strIngredient20;
+
     @SerializedName("strMeasure1")
     @Expose
+    @ColumnInfo(name = "strMeasure1")
     private String strMeasure1;
+
     @SerializedName("strMeasure2")
     @Expose
+    @ColumnInfo(name = "strMeasure2")
     private String strMeasure2;
+
     @SerializedName("strMeasure3")
     @Expose
+    @ColumnInfo(name = "strMeasure3")
     private String strMeasure3;
+
     @SerializedName("strMeasure4")
     @Expose
+    @ColumnInfo(name = "strMeasure4")
     private String strMeasure4;
+
     @SerializedName("strMeasure5")
     @Expose
+    @ColumnInfo(name = "strMeasure5")
     private String strMeasure5;
+
     @SerializedName("strMeasure6")
     @Expose
+    @ColumnInfo(name = "strMeasure6")
     private String strMeasure6;
+
     @SerializedName("strMeasure7")
     @Expose
+    @ColumnInfo(name = "strMeasure7")
     private String strMeasure7;
+
     @SerializedName("strMeasure8")
     @Expose
+    @ColumnInfo(name = "strMeasure8")
     private String strMeasure8;
+
     @SerializedName("strMeasure9")
     @Expose
+    @ColumnInfo(name = "strMeasure9")
     private String strMeasure9;
+
     @SerializedName("strMeasure10")
     @Expose
+    @ColumnInfo(name = "strMeasure10")
     private String strMeasure10;
+
     @SerializedName("strMeasure11")
     @Expose
+    @ColumnInfo(name = "strMeasure11")
     private String strMeasure11;
+
     @SerializedName("strMeasure12")
     @Expose
+    @ColumnInfo(name = "strMeasure12")
     private String strMeasure12;
+
     @SerializedName("strMeasure13")
     @Expose
+    @ColumnInfo(name = "strMeasure13")
     private String strMeasure13;
+
     @SerializedName("strMeasure14")
     @Expose
+    @ColumnInfo(name = "strMeasure14")
     private String strMeasure14;
+
     @SerializedName("strMeasure15")
     @Expose
+    @ColumnInfo(name = "strMeasure15")
     private String strMeasure15;
+
     @SerializedName("strMeasure16")
     @Expose
+    @ColumnInfo(name = "strMeasure16")
     private String strMeasure16;
+
     @SerializedName("strMeasure17")
     @Expose
+    @ColumnInfo(name = "strMeasure17")
     private String strMeasure17;
+
     @SerializedName("strMeasure18")
     @Expose
+    @ColumnInfo(name = "strMeasure18")
     private String strMeasure18;
+
     @SerializedName("strMeasure19")
     @Expose
+    @ColumnInfo(name = "strMeasure19")
     private String strMeasure19;
+
     @SerializedName("strMeasure20")
     @Expose
+    @ColumnInfo(name = "strMeasure20")
     private String strMeasure20;
+
     @SerializedName("strSource")
     @Expose
+    @ColumnInfo(name = "strSource")
     private String strSource;
+
     @SerializedName("strImageSource")
     @Expose
+    @ColumnInfo(name = "strImageSource")
     private String strImageSource;
+
     @SerializedName("strCreativeCommonsConfirmed")
     @Expose
+    @ColumnInfo(name = "strCreativeCommonsConfirmed")
     private String strCreativeCommonsConfirmed;
+
     @SerializedName("dateModified")
     @Expose
+    @ColumnInfo(name = "dateModified")
     private String dateModified;
 
     @SerializedName("idIngredient")
     @Expose
+    @ColumnInfo(name = "idIngredient")
     private String idIngredientItem;
+
     @SerializedName("strIngredient")
     @Expose
+    @ColumnInfo(name = "strIngredient")
     private String strIngredientItem;
+
     @SerializedName("strDescription")
     @Expose
+    @ColumnInfo(name = "strDescription")
     private String strIngredientItemDescription;
+
     @SerializedName("strType")
     @Expose
+    @ColumnInfo(name = "strType")
     private String strIngredientItemType;
+
 
     public String getIdIngredientItem() {
         return idIngredientItem;

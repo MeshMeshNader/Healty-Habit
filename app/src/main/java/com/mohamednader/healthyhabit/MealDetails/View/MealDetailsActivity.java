@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -20,11 +21,13 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.mohamednader.healthyhabit.Category.View.CategoryFragment;
+import com.mohamednader.healthyhabit.Database.ConcreteLocalSource;
 import com.mohamednader.healthyhabit.MealDetails.Presenter.MealDetailsPresenter;
 import com.mohamednader.healthyhabit.Models.MealsModels.Meal;
 import com.mohamednader.healthyhabit.Models.Repository;
 import com.mohamednader.healthyhabit.Network.ApiClient;
 import com.mohamednader.healthyhabit.R;
+import com.mohamednader.healthyhabit.Utils.Utils;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
@@ -39,6 +42,7 @@ public class MealDetailsActivity extends AppCompatActivity implements MealDetail
     ImageView mealThumb;
     TextView measures, ingredients, category, country, instructions;
     ProgressBar progressBar;
+    Meal meal;
 
     MealDetailsPresenter mealDetailsPresenter;
 
@@ -83,7 +87,8 @@ public class MealDetailsActivity extends AppCompatActivity implements MealDetail
         Intent intent = getIntent();
         int meal_id = intent.getIntExtra(CategoryFragment.EXTRA_MEAL_ID, 0);
 
-        mealDetailsPresenter = new MealDetailsPresenter(this, Repository.getInstance(this, ApiClient.getInstance()));
+        mealDetailsPresenter = new MealDetailsPresenter(this,
+                Repository.getInstance(this, ApiClient.getInstance(), ConcreteLocalSource.getInstance(this)));
 
         mealDetailsPresenter.getMealDetailsByID(meal_id);
 
@@ -132,7 +137,7 @@ public class MealDetailsActivity extends AppCompatActivity implements MealDetail
                 return true;
 
             case R.id.favorite:
-                // adding to database
+                mealDetailsPresenter.addMealToFav(meal);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -142,7 +147,7 @@ public class MealDetailsActivity extends AppCompatActivity implements MealDetail
 
     @Override
     public void showMealDetailsByID(List<Meal> list) {
-        Meal meal = list.get(0);
+        meal = list.get(0);
         Glide.with(this)
                 .load(meal.getStrMealThumb())
                 .into(mealThumb);
@@ -276,10 +281,11 @@ public class MealDetailsActivity extends AppCompatActivity implements MealDetail
         }
 
 
-        if (meal.getStrYoutube() != null) {
-            youtubePlayerView.setVisibility(View.VISIBLE);
-            Uri uri = Uri.parse(meal.getStrYoutube());
-            videoId = uri.getQueryParameter("v");
+        youtubePlayerView.setVisibility(View.VISIBLE);
+        Uri uri = Uri.parse(meal.getStrYoutube());
+        videoId = uri.getQueryParameter("v");
+        if (videoId != null) {
+
             getLifecycle().addObserver(youtubePlayerView);
             youtubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
                 @Override
@@ -289,6 +295,7 @@ public class MealDetailsActivity extends AppCompatActivity implements MealDetail
             });
         } else {
             youtubePlayerView.setVisibility(View.GONE);
+
         }
 
 
@@ -304,5 +311,10 @@ public class MealDetailsActivity extends AppCompatActivity implements MealDetail
         progressBar.setVisibility(View.INVISIBLE);
     }
 
+
+    @Override
+    public void onAddedToFavSuccessfully() {
+        Toast.makeText(this, meal.getStrMeal() + " Added To Fav! ", Toast.LENGTH_SHORT).show();
+    }
 
 }

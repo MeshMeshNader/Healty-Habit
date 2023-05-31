@@ -10,6 +10,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.mohamednader.healthyhabit.Auth.LoginActivity;
 import com.mohamednader.healthyhabit.Home.View.HomeActivity;
+import com.mohamednader.healthyhabit.MainHome.MainHome;
 
 public class Splash extends AppCompatActivity {
 
@@ -56,7 +57,7 @@ public class Splash extends AppCompatActivity {
 
     void sendUserToHome() {
         FirebaseUser firebaseUser = mAuth.getCurrentUser();
-        Intent intent = new Intent(Splash.this, HomeActivity.class);
+        Intent intent = new Intent(Splash.this, MainHome.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

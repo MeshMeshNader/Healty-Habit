@@ -1,5 +1,6 @@
 package com.mohamednader.healthyhabit.Search.View.SearchResponse;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,6 +20,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.mohamednader.healthyhabit.Adapters.MealsAdapter;
 import com.mohamednader.healthyhabit.Adapters.OnMealClickListener;
+import com.mohamednader.healthyhabit.Database.ConcreteLocalSource;
+import com.mohamednader.healthyhabit.MealDetails.View.MealDetailsActivity;
 import com.mohamednader.healthyhabit.Models.MealsModels.Meal;
 import com.mohamednader.healthyhabit.Models.Repository;
 import com.mohamednader.healthyhabit.Network.ApiClient;
@@ -37,6 +41,8 @@ public class SearchFragmentResponse extends Fragment implements SearchFragmentRe
     SearchFragmentResponsePresenter searchFragmentResponsePresenter;
     List<Meal> resultItems;
     String key = "";
+    Meal meal;
+    public static final String EXTRA_MEAL_ID = "mealID";
 
     public SearchFragmentResponse() {
         // Required empty public constructor
@@ -48,7 +54,7 @@ public class SearchFragmentResponse extends Fragment implements SearchFragmentRe
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_search_response, container, false);
         searchFragmentResponsePresenter = new SearchFragmentResponsePresenter(this,
-                Repository.getInstance(getActivity(), ApiClient.getInstance()));
+                Repository.getInstance(getActivity(), ApiClient.getInstance(), ConcreteLocalSource.getInstance(getActivity())));
         initViews();
         recyclerViewConfig();
         return view;
@@ -65,7 +71,7 @@ public class SearchFragmentResponse extends Fragment implements SearchFragmentRe
     }
 
     private void recyclerViewConfig() {
-        mealsAdapter = new MealsAdapter(getActivity(), new ArrayList<>(), this);
+        mealsAdapter = new MealsAdapter(getActivity(), new ArrayList<>(), this, "Fav");
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         recyclerView.setClipToPadding(false);
         recyclerView.setAdapter(mealsAdapter);
@@ -124,11 +130,26 @@ public class SearchFragmentResponse extends Fragment implements SearchFragmentRe
 
     @Override
     public void onMealClick(int mealID) {
+        Intent intent = new Intent(getActivity(), MealDetailsActivity.class);
+        intent.putExtra(EXTRA_MEAL_ID, mealID);
+        startActivity(intent);
+    }
+
+
+    @Override
+    public void onDeleteMealClick(Meal meal) {
 
     }
 
     @Override
     public void onFavMealClick(Meal meal) {
-
+        this.meal = meal;
+        searchFragmentResponsePresenter.addMealToFav(meal);
     }
+
+    @Override
+    public void onAddedToFavSuccessfully() {
+        Toast.makeText(getActivity(), meal.getStrMeal() + " Added To Fav! ", Toast.LENGTH_SHORT).show();
+    }
+
 }

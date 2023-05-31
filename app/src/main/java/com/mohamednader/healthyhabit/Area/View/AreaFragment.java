@@ -21,6 +21,7 @@ import com.bumptech.glide.Glide;
 import com.mohamednader.healthyhabit.Adapters.MealsAdapter;
 import com.mohamednader.healthyhabit.Adapters.OnMealClickListener;
 import com.mohamednader.healthyhabit.Area.Presenter.AreaPresenter;
+import com.mohamednader.healthyhabit.Database.ConcreteLocalSource;
 import com.mohamednader.healthyhabit.MealDetails.View.MealDetailsActivity;
 import com.mohamednader.healthyhabit.Models.MealsModels.Meal;
 import com.mohamednader.healthyhabit.Models.Repository;
@@ -43,6 +44,7 @@ public class AreaFragment extends Fragment implements AreaViewInterface, OnMealC
     MealsAdapter mealsAdapter;
     AreaPresenter areaPresenter;
     CardView areaCardView;
+    Meal meal;
 
 
     public AreaFragment() {
@@ -73,7 +75,7 @@ public class AreaFragment extends Fragment implements AreaViewInterface, OnMealC
     }
 
     private void recyclerViewConfig() {
-        mealsAdapter = new MealsAdapter(getActivity(), new ArrayList<>(), this);
+        mealsAdapter = new MealsAdapter(getActivity(), new ArrayList<>(), this, "Fav");
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         recyclerView.setClipToPadding(false);
         recyclerView.setAdapter(mealsAdapter);
@@ -93,7 +95,7 @@ public class AreaFragment extends Fragment implements AreaViewInterface, OnMealC
                     .into(imageAreaBg);
 
             areaPresenter = new AreaPresenter(this,
-                    Repository.getInstance(getActivity(), ApiClient.getInstance()));
+                    Repository.getInstance(getActivity(), ApiClient.getInstance(), ConcreteLocalSource.getInstance(getActivity())));
 
             areaPresenter.getMealsByArea(getArguments().getString("EXTRA_DATA_NAME"));
         }
@@ -133,9 +135,19 @@ public class AreaFragment extends Fragment implements AreaViewInterface, OnMealC
     }
 
     @Override
-    public void onFavMealClick(Meal meal) {
-        Toast.makeText(getActivity(), "You Clicked Fav " + meal.getStrMeal(), Toast.LENGTH_SHORT).show();
+    public void onDeleteMealClick(Meal meal) {
 
+    }
+
+    @Override
+    public void onFavMealClick(Meal meal) {
+        this.meal = meal;
+        areaPresenter.addMealToFav(meal);
+    }
+
+    @Override
+    public void onAddedToFavSuccessfully() {
+        Toast.makeText(getActivity(), meal.getStrMeal() + " Added To Fav! ", Toast.LENGTH_SHORT).show();
     }
 
 }

@@ -104,4 +104,12 @@ public class HomePresenter implements HomePresenterInterface {
             }
         });
     }
+
+    @Override
+    public void addMealToFav(Meal meal) {
+
+        repositoryInterface.insertMeal(meal);
+        viewInterface.onAddedToFavSuccessfully();
+    }
+
 }

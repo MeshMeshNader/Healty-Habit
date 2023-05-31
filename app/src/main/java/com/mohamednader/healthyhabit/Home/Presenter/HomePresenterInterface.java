@@ -1,5 +1,7 @@
 package com.mohamednader.healthyhabit.Home.Presenter;
 
+import com.mohamednader.healthyhabit.Models.MealsModels.Meal;
+
 public interface HomePresenterInterface {
 
     public void getMealsByLetterFilter(Character character);
@@ -9,5 +11,7 @@ public interface HomePresenterInterface {
     public void getListAreasNames();
 
     public void getListCategoriesDetails();
+
+    public void addMealToFav(Meal meal);
 
 }

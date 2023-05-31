@@ -42,5 +42,10 @@ public class CategoryPresenter implements CategoryPresenterInterface {
             }
         }, category);
     }
+    @Override
+    public void addMealToFav(Meal meal) {
 
+        repositoryInterface.insertMeal(meal);
+        viewInterface.onAddedToFavSuccessfully();
+    }
 }
