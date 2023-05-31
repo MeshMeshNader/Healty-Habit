@@ -49,6 +49,7 @@ public class AreasAdapter extends RecyclerView.Adapter<AreasAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull AreasAdapter.ViewHolder holder, int position) {
         Meal area = areas.get(position);
+        int pos = position;
         holder.areaNameTxtView.setText(area.getStrArea());
         Glide.with(context)
                 .load(Utils.generateFlagUrl(area.getStrArea()))
@@ -56,7 +57,7 @@ public class AreasAdapter extends RecyclerView.Adapter<AreasAdapter.ViewHolder> 
         holder.areaCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onAreaClickListener.onAreaClick(area.getStrArea());
+                onAreaClickListener.onAreaClick(areas , pos);
             }
         });
     }

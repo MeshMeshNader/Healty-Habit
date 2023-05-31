@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -15,8 +14,12 @@ import com.mohamednader.healthyhabit.Adapters.AreasAdapter;
 import com.mohamednader.healthyhabit.Adapters.CategoriesAdapter;
 import com.mohamednader.healthyhabit.Adapters.OnAreaClickListener;
 import com.mohamednader.healthyhabit.Adapters.OnCategoryClickListener;
+import com.mohamednader.healthyhabit.Adapters.OnMealClickListener;
+import com.mohamednader.healthyhabit.Adapters.SwipeMealAdapter;
+import com.mohamednader.healthyhabit.Area.View.AreaActivity;
 import com.mohamednader.healthyhabit.Category.View.CategoryActivity;
 import com.mohamednader.healthyhabit.Home.Presenter.HomePresenter;
+import com.mohamednader.healthyhabit.MealDetails.View.MealDetailsActivity;
 import com.mohamednader.healthyhabit.Models.CategoriesModels.Category;
 import com.mohamednader.healthyhabit.Models.MealsModels.Meal;
 import com.mohamednader.healthyhabit.Models.Repository;
@@ -27,18 +30,27 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeActivity extends AppCompatActivity implements HomeViewInterface, OnAreaClickListener, OnCategoryClickListener {
+import link.fls.swipestack.SwipeStack;
+
+public class HomeActivity extends AppCompatActivity implements HomeViewInterface,
+        OnAreaClickListener, OnCategoryClickListener, OnMealClickListener, SwipeStack.SwipeStackListener {
 
     private final String TAG = "HomeActivity_TAG";
     private HomePresenter homePresenter;
 
+    public static final String EXTRA_MEAL_ID = "mealID";
     public static final String EXTRA_CATEGORY = "category";
+    public static final String EXTRA_AREA = "area";
     public static final String EXTRA_POSITION = "position";
     public static final String EXTRA_DETAIL = "detail";
 
     RecyclerView recyclerViewAreas, recyclerViewCategories;
     AreasAdapter areasAdapter;
     CategoriesAdapter categoriesAdapter;
+    SwipeMealAdapter swipeMealAdapter;
+    SwipeStack swipeStackView;
+    List<Meal> stackMeals;
+    int stackCounter = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,10 +74,17 @@ public class HomeActivity extends AppCompatActivity implements HomeViewInterface
 //        homePresenter.getMealsByArea("Egyptian");
 //        homePresenter.getMealsByIngredient("Chicken");
         homePresenter.getListCategoriesDetails();
+        for (int i = 0; i < 10; i++) {
+            homePresenter.getRandomMeal();
+            stackCounter++;
+        }
     }
 
     private void initViews() {
 
+        swipeStackView = findViewById(R.id.swipe_stack_view);
+        swipeStackView.setListener(this);
+        stackMeals = new ArrayList<>();
         recyclerViewAreas = findViewById(R.id.viewPagerHeader);
         recyclerViewCategories = findViewById(R.id.recyclerCategory);
 
@@ -81,13 +100,16 @@ public class HomeActivity extends AppCompatActivity implements HomeViewInterface
         recyclerViewAreas.setAdapter(areasAdapter);
 
 
-
         GridLayoutManager layoutManager = new GridLayoutManager(this, 3,
                 GridLayoutManager.VERTICAL, false);
         recyclerViewCategories.setLayoutManager(layoutManager);
         recyclerViewCategories.setNestedScrollingEnabled(true);
         categoriesAdapter = new CategoriesAdapter(this, new ArrayList<>(), this);
         recyclerViewCategories.setAdapter(categoriesAdapter);
+
+
+        swipeMealAdapter = new SwipeMealAdapter(this, new ArrayList<>());
+
 
     }
 
@@ -99,14 +121,12 @@ public class HomeActivity extends AppCompatActivity implements HomeViewInterface
 
     @Override
     public void showRandomMeal(List<Meal> list) {
-        for (int i = 0; i < list.size(); i++)
-            Log.i(TAG, "showRandomMeal: " + list.get(i).getStrMeal());
-    }
-
-    @Override
-    public void showMealDetailsByID(List<Meal> list) {
-        for (int i = 0; i < list.size(); i++)
-            Log.i(TAG, "showMealDetailsByID: " + list.get(i).getStrMeal());
+        stackMeals.add(list.get(0));
+        Log.i(TAG, "showRandomMeal: " + stackCounter);
+        if (stackCounter == 10) {
+            swipeMealAdapter.setList(stackMeals);
+            swipeStackView.setAdapter(swipeMealAdapter);
+        }
     }
 
     @Override
@@ -162,8 +182,11 @@ public class HomeActivity extends AppCompatActivity implements HomeViewInterface
 
 
     @Override
-    public void onAreaClick(String areaName) {
-        Toast.makeText(this, "You Clicked " + areaName, Toast.LENGTH_SHORT).show();
+    public void onAreaClick(List<Meal> list, int pos) {
+        Intent intent = new Intent(this, AreaActivity.class);
+        intent.putExtra(EXTRA_AREA, (Serializable) list);
+        intent.putExtra(EXTRA_POSITION, pos);
+        startActivity(intent);
     }
 
     @Override
@@ -173,6 +196,34 @@ public class HomeActivity extends AppCompatActivity implements HomeViewInterface
         intent.putExtra(EXTRA_CATEGORY, (Serializable) list);
         intent.putExtra(EXTRA_POSITION, pos);
         startActivity(intent);
+
+    }
+
+    @Override
+    public void onMealClick(int mealID) {
+        Intent intent = new Intent(this, MealDetailsActivity.class);
+        intent.putExtra(EXTRA_MEAL_ID, mealID);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onFavMealClick(Meal meal) {
+
+    }
+
+    @Override
+    public void onViewSwipedToLeft(int position) {
+
+    }
+
+    @Override
+    public void onViewSwipedToRight(int position) {
+
+    }
+
+    @Override
+    public void onStackEmpty() {
+        swipeStackView.resetStack();
 
     }
 }

@@ -1,5 +1,22 @@
 <resources>
     <string name="app_name">Healthy Habit</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="search_your_recipes">Search Your Recipes…</string>
+    <string name="meal_categories">Meal Categories</string>
+    <string name="meal_for_inspiration">Meal For Inspiration</string>
+    <string name="category">Category</string>
+    <string name="country">Country</string>
+    <string name="instructions">INSTRUCTIONS</string>
+    <string name="ingredients">INGREDIENTS</string>
+    <string name="dot_loading">...</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="lgoin">Login</string>
+    <string name="forget_password">Forget Password ?</string>
+    <string name="dont_have_account">Don\'t have an account ?</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="or">OR</string>
+    <string name="login_as_guest">Login As Guest</string>
+    <string name="login_with_google">Login With Google</string>
+
 </resources>

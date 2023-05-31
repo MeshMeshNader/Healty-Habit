@@ -4,7 +4,6 @@ public interface HomePresenterInterface {
 
     public void getMealsByLetterFilter(Character character);
     public void getRandomMeal();
-    public void getMealDetailsByID(int id);
     public void getListCategoriesNames();
     public void getListAreasNames();
     public void getListIngredientsNames();

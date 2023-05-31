@@ -1,7 +1,6 @@
-package com.mohamednader.healthyhabit.MealDetails.Presenter;
+package com.mohamednader.healthyhabit.Area.Presenter;
 
-import com.mohamednader.healthyhabit.Category.View.CategoryViewInterface;
-import com.mohamednader.healthyhabit.MealDetails.View.MealDetailsViewInterface;
+import com.mohamednader.healthyhabit.Area.View.AreaViewInterface;
 import com.mohamednader.healthyhabit.Models.CategoriesModels.Category;
 import com.mohamednader.healthyhabit.Models.MealsModels.Meal;
 import com.mohamednader.healthyhabit.Models.RepositoryInterface;
@@ -9,24 +8,27 @@ import com.mohamednader.healthyhabit.Network.NetworkDelegateAPI;
 
 import java.util.List;
 
-public class MealDetailsPresenter implements MealDetailsPresenterInterface{
+public class AreaPresenter implements AreaPresenterInterface {
 
-    private MealDetailsViewInterface viewInterface;
+
+    private AreaViewInterface viewInterface;
     private RepositoryInterface repositoryInterface;
 
-    public MealDetailsPresenter(MealDetailsViewInterface viewInterface, RepositoryInterface repositoryInterface) {
+    public AreaPresenter(AreaViewInterface viewInterface, RepositoryInterface repositoryInterface) {
         this.viewInterface = viewInterface;
         this.repositoryInterface = repositoryInterface;
     }
 
+
     @Override
-    public void getMealDetailsByID(int id) {
+    public void getMealsByArea(String area) {
+
         viewInterface.showLoading();
-        repositoryInterface.startCallToGetMealDetailsByID(new NetworkDelegateAPI() {
+        repositoryInterface.startCallToGetMealsByArea(new NetworkDelegateAPI() {
             @Override
             public void onSuccessResponseMeal(List<Meal> list) {
                 viewInterface.hideLoading();
-                viewInterface.showMealDetailsByID(list);
+                viewInterface.showMealsByArea(list);
             }
 
             @Override
@@ -38,6 +40,7 @@ public class MealDetailsPresenter implements MealDetailsPresenterInterface{
             public void onFailureResponse(String errorMsg) {
 
             }
-        }, id);
+        }, area);
     }
+
 }

@@ -16,7 +16,7 @@
         <RelativeLayout
             android:id="@+id/headerView"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="350dp"
             android:orientation="vertical">
 
             <View
@@ -81,7 +81,7 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="16dp"
-                android:text="Meal Categories"
+                android:text="@string/meal_categories"
                 android:textColor="@color/secondary_color"
                 android:textSize="19sp"
                 android:textStyle="bold" />
@@ -94,24 +94,48 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="8dp"
-                android:layout_marginBottom="50dp"
+                android:layout_marginBottom="30dp"
                 android:clipToPadding="false"
                 android:scrollbars="none" />
+
 
             <include
                 android:id="@+id/shimmerCategory"
                 layout="@layout/item_recycler_category_shimmer" />
 
             <TextView
+                android:id="@+id/meal_for_inspiration"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/recyclerCategory"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:text="@string/meal_for_inspiration"
+                android:textColor="@color/secondary_color"
+                android:textSize="19sp"
+                android:textStyle="bold" />
+
+
+            <RelativeLayout
+                android:id="@+id/lay"
+                android:layout_width="350dp"
+                android:layout_height="320dp"
+                android:layout_below="@id/recyclerCategory"
                 android:layout_alignParentBottom="true"
-                android:layout_marginTop="20dp"
-                android:background="@color/secondary_color"
-                android:gravity="center"
-                android:padding="10dp"
-                android:text="@string/app_name"
-                android:textColor="@color/white" />
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="30dp">
+
+                <link.fls.swipestack.SwipeStack
+                    android:id="@+id/swipe_stack_view"
+                    android:layout_width="350dp"
+                    android:layout_height="350dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:padding="10dp"
+                    app:stack_size="5"
+                    />
+            </RelativeLayout>
+
 
         </RelativeLayout>
     </androidx.core.widget.NestedScrollView>

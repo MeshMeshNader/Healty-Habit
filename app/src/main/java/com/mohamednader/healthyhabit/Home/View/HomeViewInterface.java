@@ -9,7 +9,6 @@ public interface HomeViewInterface {
 
     public void showMealsByLetterFilter(List<Meal> list);
     public void showRandomMeal(List<Meal> list);
-    public void showMealDetailsByID(List<Meal> list);
     public void showListCategoriesNames(List<Meal> list);
     public void showListAreasNames(List<Meal> list);
     public void showListIngredientsNames(List<Meal> list);

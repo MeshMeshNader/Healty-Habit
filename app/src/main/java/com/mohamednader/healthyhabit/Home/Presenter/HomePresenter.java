@@ -59,25 +59,6 @@ public class HomePresenter implements HomePresenterInterface {
         });
     }
 
-    @Override
-    public void getMealDetailsByID(int id) {
-        repositoryInterface.startCallToGetMealDetailsByID(new NetworkDelegateAPI() {
-            @Override
-            public void onSuccessResponseMeal(List<Meal> list) {
-                viewInterface.showMealDetailsByID(list);
-            }
-
-            @Override
-            public void onSuccessResponseCategory(List<Category> list) {
-
-            }
-
-            @Override
-            public void onFailureResponse(String errorMsg) {
-
-            }
-        }, id);
-    }
 
     @Override
     public void getListCategoriesNames() {
