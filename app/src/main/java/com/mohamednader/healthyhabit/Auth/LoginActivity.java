@@ -30,7 +30,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.mohamednader.healthyhabit.Home.View.HomeActivity;
+import com.mohamednader.healthyhabit.MainHome.MainHome;
 import com.mohamednader.healthyhabit.R;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
@@ -148,7 +148,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 googleSignIn();
                 break;
             case R.id.guest_login_btn:
-                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                startActivity(new Intent(LoginActivity.this, MainHome.class));
                 finish();
                 break;
             case R.id.forget_password_tv:
@@ -212,7 +212,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             Toast.makeText(LoginActivity.this, "Welcome", Toast.LENGTH_SHORT).show();
                             mLoading.dismiss();
                             updateUI(firebaseUser);
-                            startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                            startActivity(new Intent(LoginActivity.this, MainHome.class));
                             finish();
                         } else {
                             SendEmailVerificationMessage();
@@ -325,14 +325,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (firebaseUser.getUid().equals("yLSVKZxA67gaA5a2k6TS73GleQJ3")) {
             Toast.makeText(LoginActivity.this, "Welcome", Toast.LENGTH_SHORT).show();
             mLoading.dismiss();
-            startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+            startActivity(new Intent(LoginActivity.this, MainHome.class));
             finish();
         } else {
             if (emailAddressChecker) {
 
                 Toast.makeText(LoginActivity.this, "Welcome", Toast.LENGTH_SHORT).show();
                 mLoading.dismiss();
-                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                startActivity(new Intent(LoginActivity.this, MainHome.class));
                 finish();
 
             } else {

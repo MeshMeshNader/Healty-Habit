@@ -9,7 +9,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
-import com.mohamednader.healthyhabit.Home.View.HomeActivity;
+import com.mohamednader.healthyhabit.Home.View.HomeFragment;
 import com.mohamednader.healthyhabit.Models.MealsModels.Meal;
 import com.mohamednader.healthyhabit.R;
 
@@ -43,8 +43,8 @@ public class AreaActivity extends AppCompatActivity {
 
     private void initIntent() {
         Intent intent = getIntent();
-        List<Meal> meals = (List<Meal>) intent.getSerializableExtra(HomeActivity.EXTRA_AREA);
-        int position = intent.getIntExtra(HomeActivity.EXTRA_POSITION, 0);
+        List<Meal> meals = (List<Meal>) intent.getSerializableExtra(HomeFragment.EXTRA_AREA);
+        int position = intent.getIntExtra(HomeFragment.EXTRA_POSITION, 0);
 
         adapter = new AreaViewPagerAdapter(
                 getSupportFragmentManager(),

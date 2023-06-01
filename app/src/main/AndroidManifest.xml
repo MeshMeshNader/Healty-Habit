@@ -22,13 +22,6 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".Favorites.View.FavActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".OfflineMealsDetails.View.OfflineMealDetailsActivity"
             android:exported="false">
             <meta-data
@@ -65,13 +58,6 @@
         </activity>
         <activity
             android:name=".Auth.SignupActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".Home.View.HomeActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

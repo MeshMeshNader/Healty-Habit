@@ -1,16 +1,16 @@
 package com.mohamednader.healthyhabit.Favorites.View;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ProgressBar;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.mohamednader.healthyhabit.Adapters.MealsAdapter;
@@ -28,42 +28,40 @@ import com.mohamednader.healthyhabit.Search.Presenter.SearchResponse.SearchFragm
 import java.util.ArrayList;
 import java.util.List;
 
-public class FavActivity extends AppCompatActivity implements FavViewInterface, OnMealClickListener {
+public class FavFragment extends Fragment implements FavViewInterface, OnMealClickListener {
 
-    View view;
     RecyclerView recyclerView;
     MealsAdapter favAdapter;
     FavPresenter favPresenter;
     List<Meal> resultItems;
-    String key = "";
     Meal meal;
     public static final String EXTRA_MEAL_ID = "mealID";
+    View view;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_favorite_avtivity);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.fragment_fav, container, false);
 
         favPresenter = new FavPresenter(this,
-                Repository.getInstance(this, ApiClient.getInstance(), ConcreteLocalSource.getInstance(this)));
+                Repository.getInstance(getActivity(), ApiClient.getInstance(), ConcreteLocalSource.getInstance(getActivity())));
         initViews();
         recyclerViewConfig();
 
         favPresenter.getStoredMeals();
+
+        return view;
     }
 
     private void initViews() {
-
         resultItems = new ArrayList<>();
 
-        recyclerView = findViewById(R.id.recyclerView);
-
+        recyclerView = view.findViewById(R.id.recyclerView);
     }
 
     private void recyclerViewConfig() {
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
-        favAdapter = new MealsAdapter(this, new ArrayList<>(), this, "Del");
+        favAdapter = new MealsAdapter(getActivity(), new ArrayList<>(), this, "Del");
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setHasFixedSize(true);
         recyclerView.setClipToPadding(false);
@@ -72,14 +70,14 @@ public class FavActivity extends AppCompatActivity implements FavViewInterface, 
 
     @Override
     public void onMealClick(int mealID) {
-        Intent intent = new Intent(this, OfflineMealDetailsActivity.class);
+        Intent intent = new Intent(getActivity(), OfflineMealDetailsActivity.class);
         intent.putExtra(EXTRA_MEAL_ID, mealID);
         startActivity(intent);
     }
 
     @Override
     public void showAllStoredMeals(LiveData<List<Meal>> mealsList) {
-        mealsList.observe(this, new Observer<List<Meal>>() {
+        mealsList.observe(getViewLifecycleOwner(), new Observer<List<Meal>>() {
             @Override
             public void onChanged(List<Meal> productList) {
                 favAdapter.setList(productList);
@@ -96,12 +94,11 @@ public class FavActivity extends AppCompatActivity implements FavViewInterface, 
 
     @Override
     public void onFavMealClick(Meal meal) {
-
+        // Handle fav meal click event here
     }
 
     @Override
     public void onDeletedFromFavSuccessfully() {
-        Toast.makeText(this, meal.getStrMeal() + " Deleted !! ", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), meal.getStrMeal() + " Deleted !! ", Toast.LENGTH_SHORT).show();
     }
-
 }
