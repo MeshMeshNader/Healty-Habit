@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.mohamednader.healthyhabit.Models.MealsModels.Meal;
 import com.mohamednader.healthyhabit.R;
+import com.mohamednader.healthyhabit.Utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,20 +55,29 @@ public class MealsAdapter extends RecyclerView.Adapter<MealsAdapter.ViewHolder> 
                 .load(meal.getStrMealThumb())
                 .into(holder.mealImg);
 
-        if(mode.equals("Fav")){
-            holder.mealFavImg.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onMealClickListener.onFavMealClick(meal);
-                }
-            });
-        }else{
-            holder.mealFavImg.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onMealClickListener.onDeleteMealClick(meal);
-                }
-            });
+        if (!(Utils.getSp(context).getBoolean(Utils.IsLoggedOn, false))) {
+            holder.mealFavImg.setVisibility(View.GONE);
+            holder.mealFavImg.setClickable(false);
+        } else {
+
+            holder.mealFavImg.setVisibility(View.VISIBLE);
+            holder.mealFavImg.setClickable(true);
+            if (mode.equals("Fav")) {
+                holder.mealFavImg.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onMealClickListener.onFavMealClick(meal);
+                    }
+                });
+            } else {
+                holder.mealFavImg.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onMealClickListener.onDeleteMealClick(meal);
+                    }
+                });
+            }
+
         }
 
 
@@ -96,9 +106,9 @@ public class MealsAdapter extends RecyclerView.Adapter<MealsAdapter.ViewHolder> 
             mealFavImg = view.findViewById(R.id.meal_fav_img);
             mealNameTxtView = view.findViewById(R.id.meal_name);
             mealCardView = view.findViewById(R.id.meal_card_view);
-            if(mode.equals("Fav")){
+            if (mode.equals("Fav")) {
                 mealFavImg.setImageResource(R.drawable.ic_add_fav);
-            }else{
+            } else {
                 mealFavImg.setImageResource(R.drawable.ic_delete);
             }
         }

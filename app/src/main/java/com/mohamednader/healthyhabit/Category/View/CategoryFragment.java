@@ -132,6 +132,14 @@ public class CategoryFragment extends Fragment implements CategoryViewInterface,
     }
 
     @Override
+    public void addToFavMeal(Meal meal) {
+        this.meal = meal;
+        meal.setStrIngredient20(Utils.getSp(getActivity())
+                .getString(Utils.UserID, ""));
+        categoryPresenter.addMealToFav(meal);
+    }
+
+    @Override
     public void onMealClick(int mealID) {
         //Toast.makeText(getActivity(), "You Clicked " + mealID, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getActivity(), MealDetailsActivity.class);
@@ -142,8 +150,7 @@ public class CategoryFragment extends Fragment implements CategoryViewInterface,
 
     @Override
     public void onFavMealClick(Meal meal) {
-        this.meal = meal;
-        categoryPresenter.addMealToFav(meal);
+        categoryPresenter.getMealDetailsByID(Integer.parseInt(meal.getIdMeal()));
     }
 
     @Override

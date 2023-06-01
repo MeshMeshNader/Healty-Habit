@@ -19,5 +19,4 @@ public interface SearchFragmentRequestViewInterface {
     public void upDateList(String newText);
 
 
-
 }

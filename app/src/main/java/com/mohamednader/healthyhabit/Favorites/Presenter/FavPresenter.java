@@ -16,8 +16,8 @@ public class FavPresenter implements FavPresenterInterface {
     }
 
     @Override
-    public void getStoredMeals() {
-        viewInterface.showAllStoredMeals( repositoryInterface.getStoredMeals() );
+    public void getStoredMeals(String userID) {
+        viewInterface.showAllStoredMeals(repositoryInterface.getAllMealsFav(userID));
     }
 
     @Override

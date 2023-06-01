@@ -8,7 +8,7 @@ import com.mohamednader.healthyhabit.Search.View.SearchResponse.SearchFragmentRe
 
 import java.util.List;
 
-public class SearchFragmentResponsePresenter implements SearchFragmentResponsePresenterInterface{
+public class SearchFragmentResponsePresenter implements SearchFragmentResponsePresenterInterface {
 
 
     private SearchFragmentResponseViewInterface viewInterface;
@@ -17,7 +17,29 @@ public class SearchFragmentResponsePresenter implements SearchFragmentResponsePr
     public SearchFragmentResponsePresenter(SearchFragmentResponseViewInterface viewInterface, RepositoryInterface repositoryInterface) {
         this.viewInterface = viewInterface;
         this.repositoryInterface = repositoryInterface;
-     }
+    }
+
+    @Override
+    public void getMealDetailsByID(int id) {
+
+        repositoryInterface.startCallToGetMealDetailsByID(new NetworkDelegateAPI() {
+            @Override
+            public void onSuccessResponseMeal(List<Meal> list) {
+
+                viewInterface.addToFavMeal(list.get(0));
+            }
+
+            @Override
+            public void onSuccessResponseCategory(List<Category> list) {
+
+            }
+
+            @Override
+            public void onFailureResponse(String errorMsg) {
+
+            }
+        }, id);
+    }
 
     @Override
     public void getMealsByCategory(String category) {
@@ -26,8 +48,8 @@ public class SearchFragmentResponsePresenter implements SearchFragmentResponsePr
         repositoryInterface.startCallToGetMealsByCategory(new NetworkDelegateAPI() {
             @Override
             public void onSuccessResponseMeal(List<Meal> list) {
-                    viewInterface.hideLoading();
-                    viewInterface.showMealsByCategory(list);
+                viewInterface.hideLoading();
+                viewInterface.showMealsByCategory(list);
             }
 
             @Override
@@ -48,7 +70,7 @@ public class SearchFragmentResponsePresenter implements SearchFragmentResponsePr
         repositoryInterface.startCallToGetMealsByArea(new NetworkDelegateAPI() {
             @Override
             public void onSuccessResponseMeal(List<Meal> list) {
-                  viewInterface.showMealsByArea(list);
+                viewInterface.showMealsByArea(list);
             }
 
             @Override
@@ -68,7 +90,7 @@ public class SearchFragmentResponsePresenter implements SearchFragmentResponsePr
         repositoryInterface.startCallToGetMealsByIngredient(new NetworkDelegateAPI() {
             @Override
             public void onSuccessResponseMeal(List<Meal> list) {
-                 viewInterface.showMealsByIngredient(list);
+                viewInterface.showMealsByIngredient(list);
             }
 
             @Override

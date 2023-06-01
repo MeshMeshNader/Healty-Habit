@@ -1,17 +1,14 @@
 package com.mohamednader.healthyhabit.Area.View;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
+
 import com.google.android.material.tabs.TabLayout;
-import com.mohamednader.healthyhabit.Category.View.CategoryViewPagerAdapter;
-import com.mohamednader.healthyhabit.Models.CategoriesModels.Category;
 import com.mohamednader.healthyhabit.Models.MealsModels.Meal;
 import com.mohamednader.healthyhabit.R;
 
@@ -34,7 +31,7 @@ public class AreaHomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view =  inflater.inflate(R.layout.fragment_area_home, container, false);
+        view = inflater.inflate(R.layout.fragment_area_home, container, false);
 
         initViews();
         initIntent();

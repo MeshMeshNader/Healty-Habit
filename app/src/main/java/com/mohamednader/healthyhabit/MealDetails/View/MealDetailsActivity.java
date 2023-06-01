@@ -61,6 +61,7 @@ public class MealDetailsActivity extends AppCompatActivity implements MealDetail
 
     private void initViews() {
 
+
         toolbar = findViewById(R.id.toolbar);
         appBarLayout = findViewById(R.id.appbar_meal_details);
         collapsingToolbarLayout = findViewById(R.id.collapsing_toolbar);
@@ -124,6 +125,13 @@ public class MealDetailsActivity extends AppCompatActivity implements MealDetail
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_detail, menu);
         MenuItem favoriteItem = menu.findItem(R.id.favorite);
+
+        if (!(Utils.getSp(this).getBoolean(Utils.IsLoggedOn, false))) {
+            favoriteItem.setVisible(false);
+        } else {
+            favoriteItem.setVisible(true);
+        }
+
         Drawable favoriteItemColor = favoriteItem.getIcon();
         setupColorActionBarIcon(favoriteItemColor);
         return true;
@@ -137,6 +145,8 @@ public class MealDetailsActivity extends AppCompatActivity implements MealDetail
                 return true;
 
             case R.id.favorite:
+                meal.setStrIngredient20(Utils.getSp(this)
+                        .getString(Utils.UserID, ""));
                 mealDetailsPresenter.addMealToFav(meal);
                 return true;
             default:

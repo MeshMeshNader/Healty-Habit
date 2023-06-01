@@ -13,7 +13,6 @@ import java.io.Serializable;
 @Entity(tableName = "meals")
 public class Meal implements Serializable {
 
-
     @SerializedName("idMeal")
     @Expose
     @PrimaryKey()

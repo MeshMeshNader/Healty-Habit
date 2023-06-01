@@ -3,7 +3,6 @@ package com.mohamednader.healthyhabit.Search.Presenter;
 import com.mohamednader.healthyhabit.Models.RepositoryInterface;
 import com.mohamednader.healthyhabit.Search.View.SearchRequest.SearchFragmentRequest;
 import com.mohamednader.healthyhabit.Search.View.SearchRequest.SearchFragmentRequestViewInterface;
-import com.mohamednader.healthyhabit.Search.View.SearchResponse.SearchFragmentResponseViewInterface;
 import com.mohamednader.healthyhabit.Search.View.SearchViewInterface;
 
 public class SearchPresenter implements SearchPresenterInterface {
@@ -22,7 +21,6 @@ public class SearchPresenter implements SearchPresenterInterface {
     }
 
 
-
     @Override
     public void upDateList(String newText) {
         searchFragmentRequestViewInterface.upDateList(newText);
@@ -32,7 +30,6 @@ public class SearchPresenter implements SearchPresenterInterface {
     public void sendResponse(String searchResponseName) {
         viewInterface.goToSearchResult(searchResponseName);
     }
-
 
 
 }

@@ -14,4 +14,6 @@ public interface HomePresenterInterface {
 
     public void addMealToFav(Meal meal);
 
+    public void getMealDetailsByID(int id);
+
 }

@@ -5,6 +5,8 @@ import com.mohamednader.healthyhabit.Models.MealsModels.Meal;
 public interface AreaPresenterInterface {
 
     public void getMealsByArea(String category);
+
     public void addMealToFav(Meal meal);
 
+    public void getMealDetailsByID(int id);
 }

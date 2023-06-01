@@ -1,9 +1,9 @@
 package com.mohamednader.healthyhabit.OfflineMealsDetails.Presenter;
 
-import com.mohamednader.healthyhabit.Models.CategoriesModels.Category;
+import androidx.lifecycle.LiveData;
+
 import com.mohamednader.healthyhabit.Models.MealsModels.Meal;
 import com.mohamednader.healthyhabit.Models.RepositoryInterface;
-import com.mohamednader.healthyhabit.Network.NetworkDelegateAPI;
 import com.mohamednader.healthyhabit.OfflineMealsDetails.View.OfflineMealDetailsViewInterface;
 
 import java.util.List;
@@ -20,22 +20,11 @@ public class OfflineMealDetailsPresenter implements OfflineMealDetailsPresenterI
 
     @Override
     public void getMealDetailsByID(int id) {
-         repositoryInterface.startCallToGetMealDetailsByID(new NetworkDelegateAPI() {
-            @Override
-            public void onSuccessResponseMeal(List<Meal> list) {
-                 viewInterface.showMealDetailsByID(list);
-            }
+        LiveData<List<Meal>> meals = repositoryInterface.getAllMealDetails(id);
 
-            @Override
-            public void onSuccessResponseCategory(List<Category> list) {
+        viewInterface.showMealDetailsByID(meals);
 
-            }
 
-            @Override
-            public void onFailureResponse(String errorMsg) {
-
-            }
-        }, id);
     }
 
 

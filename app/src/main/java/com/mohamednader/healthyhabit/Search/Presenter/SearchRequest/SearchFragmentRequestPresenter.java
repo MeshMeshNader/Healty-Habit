@@ -1,7 +1,5 @@
 package com.mohamednader.healthyhabit.Search.Presenter.SearchRequest;
 
-import android.util.Log;
-
 import com.mohamednader.healthyhabit.Models.CategoriesModels.Category;
 import com.mohamednader.healthyhabit.Models.MealsModels.Meal;
 import com.mohamednader.healthyhabit.Models.RepositoryInterface;

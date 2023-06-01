@@ -12,6 +12,8 @@ public interface AreaViewInterface {
 
     public void hideLoading();
 
+    public void addToFavMeal(Meal meal);
+
     public void onAddedToFavSuccessfully();
 
 }

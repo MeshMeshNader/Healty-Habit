@@ -8,12 +8,10 @@ import androidx.room.RoomDatabase;
 
 import com.mohamednader.healthyhabit.Models.MealsModels.Meal;
 
-@Database(entities = {Meal.class}, version = 1 )
+@Database(entities = {Meal.class}, version = 3)
 public abstract class HealthyHabitDatabase extends RoomDatabase {
 
     private static HealthyHabitDatabase healthyHabitDatabase = null;
-
-    public abstract HealthyHabitDAO healthyHabitDAO();
 
     public static synchronized HealthyHabitDatabase getInstance(Context context) {
         if (healthyHabitDatabase == null) {
@@ -22,6 +20,8 @@ public abstract class HealthyHabitDatabase extends RoomDatabase {
         }
         return healthyHabitDatabase;
     }
+
+    public abstract HealthyHabitDAO healthyHabitDAO();
 
 
 }

@@ -27,6 +27,7 @@ import com.mohamednader.healthyhabit.Models.MealsModels.Meal;
 import com.mohamednader.healthyhabit.Models.Repository;
 import com.mohamednader.healthyhabit.Network.ApiClient;
 import com.mohamednader.healthyhabit.R;
+import com.mohamednader.healthyhabit.Utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -140,9 +141,16 @@ public class AreaFragment extends Fragment implements AreaViewInterface, OnMealC
     }
 
     @Override
-    public void onFavMealClick(Meal meal) {
+    public void addToFavMeal(Meal meal) {
         this.meal = meal;
+        meal.setStrIngredient20(Utils.getSp(getActivity())
+                .getString(Utils.UserID, ""));
         areaPresenter.addMealToFav(meal);
+    }
+
+    @Override
+    public void onFavMealClick(Meal meal) {
+        areaPresenter.getMealDetailsByID(Integer.parseInt(meal.getIdMeal()));
     }
 
     @Override

@@ -12,5 +12,7 @@ public interface CategoryViewInterface {
 
     public void hideLoading();
 
+    public void addToFavMeal(Meal meal);
+
     public void onAddedToFavSuccessfully();
 }

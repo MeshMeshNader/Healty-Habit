@@ -15,6 +15,8 @@ public interface HomeViewInterface {
 
     public void showListCategoriesDetails(List<Category> list);
 
+    public void addToFavMeal(Meal meal);
+
     void showLoading();
 
     void hideLoading();

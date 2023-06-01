@@ -10,6 +10,8 @@ public interface SearchFragmentResponsePresenterInterface {
 
     public void getMealsByIngredient(String ingredient);
 
+    public void getMealDetailsByID(int id);
+
     public void addMealToFav(Meal meal);
 
 }

@@ -2,11 +2,14 @@ package com.mohamednader.healthyhabit.MainHome;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -15,10 +18,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-import com.mohamednader.healthyhabit.Area.View.AreaActivity;
-import com.mohamednader.healthyhabit.Area.View.AreaFragment;
 import com.mohamednader.healthyhabit.Area.View.AreaHomeFragment;
-import com.mohamednader.healthyhabit.Category.View.CategoryFragment;
 import com.mohamednader.healthyhabit.Category.View.CategoryHomeFragment;
 import com.mohamednader.healthyhabit.Database.ConcreteLocalSource;
 import com.mohamednader.healthyhabit.Favorites.View.FavFragment;
@@ -30,6 +30,7 @@ import com.mohamednader.healthyhabit.Models.MealsModels.Meal;
 import com.mohamednader.healthyhabit.Models.Repository;
 import com.mohamednader.healthyhabit.Network.ApiClient;
 import com.mohamednader.healthyhabit.R;
+import com.mohamednader.healthyhabit.Search.View.SearchActivity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -46,6 +47,7 @@ public class MainHome extends AppCompatActivity implements HomeViewInterface {
     List<Category> categories;
     List<Meal> areas;
     private HomePresenter homePresenter;
+    private long backPressedTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,10 +66,14 @@ public class MainHome extends AppCompatActivity implements HomeViewInterface {
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         fab = findViewById(R.id.fab);
         drawerLayout = findViewById(R.id.drawer_layout);
+
         NavigationView navigationView = findViewById(R.id.nav_view);
+
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open_nav, R.string.close_nav);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new HomeFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_home);
@@ -81,7 +87,7 @@ public class MainHome extends AppCompatActivity implements HomeViewInterface {
                 case R.id.home:
                     replaceFragment(new HomeFragment());
                     break;
-                case R.id.shorts:
+                case R.id.category:
 
                     CategoryHomeFragment categoryHomeFragment = new CategoryHomeFragment();
                     Bundle argsCategory = new Bundle();
@@ -90,7 +96,7 @@ public class MainHome extends AppCompatActivity implements HomeViewInterface {
                     replaceFragment(categoryHomeFragment);
 
                     break;
-                case R.id.subscriptions:
+                case R.id.areas_menu_item:
 
                     AreaHomeFragment areaHomeFragment = new AreaHomeFragment();
                     Bundle argsArea = new Bundle();
@@ -99,7 +105,7 @@ public class MainHome extends AppCompatActivity implements HomeViewInterface {
                     replaceFragment(areaHomeFragment);
 
                     break;
-                case R.id.library:
+                case R.id.favorite_menu_item:
 
                     replaceFragment(new FavFragment());
 
@@ -108,10 +114,37 @@ public class MainHome extends AppCompatActivity implements HomeViewInterface {
 
             return true;
         });
+
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                replaceFragment(new CategoryFragment());
+                Intent intent = new Intent(MainHome.this, SearchActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                switch (item.getItemId()) {
+                    case R.id.nav_home:
+                        replaceFragment(new FavFragment());
+                        break;
+                    case R.id.nav_settings:
+                        // Handle settings menu item click
+                        break;
+                    case R.id.nav_share:
+                        // Handle share menu item click
+                        break;
+                    case R.id.nav_about:
+                        // Handle about menu item click
+                        break;
+
+                }
+                drawerLayout.closeDrawer(GravityCompat.START);
+                return true;
             }
         });
 
@@ -146,6 +179,11 @@ public class MainHome extends AppCompatActivity implements HomeViewInterface {
     }
 
     @Override
+    public void addToFavMeal(Meal meal) {
+
+    }
+
+    @Override
     public void showLoading() {
 
     }
@@ -159,4 +197,30 @@ public class MainHome extends AppCompatActivity implements HomeViewInterface {
     public void onAddedToFavSuccessfully() {
 
     }
+
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            Fragment currentFragment = fragmentManager.findFragmentById(R.id.frame_layout);
+
+            if (currentFragment instanceof HomeFragment) {
+                if (backPressedTime + 2000 > System.currentTimeMillis()) {
+                    super.onBackPressed();
+                    return;
+                } else {
+                    Toast.makeText(this, "Press back again to exit", Toast.LENGTH_SHORT).show();
+                }
+
+                backPressedTime = System.currentTimeMillis();
+            } else {
+                replaceFragment(new HomeFragment());
+                bottomNavigationView.setSelectedItemId(R.id.home);
+            }
+        }
+    }
+
+
 }

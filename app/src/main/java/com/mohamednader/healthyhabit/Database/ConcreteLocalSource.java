@@ -10,10 +10,10 @@ import java.util.List;
 
 public class ConcreteLocalSource implements LocalSource {
 
+    private static ConcreteLocalSource localSource = null;
     private Context context;
     private HealthyHabitDAO healthyHabitDAO;
     private LiveData<List<Meal>> storedMeals;
-    private static ConcreteLocalSource localSource = null;
 
 
     private ConcreteLocalSource(Context context) {
@@ -37,6 +37,23 @@ public class ConcreteLocalSource implements LocalSource {
     }
 
     @Override
+    public LiveData<List<Meal>> getAllMealsFav(String userID) {
+        return healthyHabitDAO.getAllMealsFav(userID);
+    }
+
+
+    @Override
+    public LiveData<List<Meal>> getAllMealsPlan(String userID, String date) {
+        return healthyHabitDAO.getAllMealsPlan(userID, date);
+    }
+
+    @Override
+    public LiveData<List<Meal>> getAllMealDetails(int mealId) {
+        return healthyHabitDAO.getAllMealDetails(mealId);
+    }
+
+
+    @Override
     public void insertMeal(Meal meal) {
         new Thread(new Runnable() {
             @Override
@@ -55,4 +72,6 @@ public class ConcreteLocalSource implements LocalSource {
             }
         }).start();
     }
+
+
 }

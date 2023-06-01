@@ -1,21 +1,29 @@
 package com.mohamednader.healthyhabit.Home.View;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.mohamednader.healthyhabit.Adapters.AreasAdapter;
 import com.mohamednader.healthyhabit.Adapters.CategoriesAdapter;
 import com.mohamednader.healthyhabit.Adapters.OnAreaClickListener;
@@ -23,6 +31,7 @@ import com.mohamednader.healthyhabit.Adapters.OnCategoryClickListener;
 import com.mohamednader.healthyhabit.Adapters.OnMealClickListener;
 import com.mohamednader.healthyhabit.Adapters.SwipeMealAdapter;
 import com.mohamednader.healthyhabit.Area.View.AreaActivity;
+import com.mohamednader.healthyhabit.Auth.LoginActivity;
 import com.mohamednader.healthyhabit.Category.View.CategoryActivity;
 import com.mohamednader.healthyhabit.Database.ConcreteLocalSource;
 import com.mohamednader.healthyhabit.Home.Presenter.HomePresenter;
@@ -31,8 +40,10 @@ import com.mohamednader.healthyhabit.Models.CategoriesModels.Category;
 import com.mohamednader.healthyhabit.Models.MealsModels.Meal;
 import com.mohamednader.healthyhabit.Models.Repository;
 import com.mohamednader.healthyhabit.Network.ApiClient;
+import com.mohamednader.healthyhabit.Planning.View.WeekActivity;
 import com.mohamednader.healthyhabit.R;
-import com.mohamednader.healthyhabit.Search.View.SearchActivity;
+import com.mohamednader.healthyhabit.Utils.CheckInternetConnection;
+import com.mohamednader.healthyhabit.Utils.Utils;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -40,8 +51,7 @@ import java.util.List;
 
 import link.fls.swipestack.SwipeStack;
 
-public class HomeFragment extends Fragment implements HomeViewInterface,
-        OnAreaClickListener, OnCategoryClickListener, OnMealClickListener, SwipeStack.SwipeStackListener {
+public class HomeFragment extends Fragment implements HomeViewInterface, OnAreaClickListener, OnCategoryClickListener, OnMealClickListener, SwipeStack.SwipeStackListener {
 
     public static final String EXTRA_MEAL_ID = "mealID";
     public static final String EXTRA_CATEGORY = "category";
@@ -49,10 +59,12 @@ public class HomeFragment extends Fragment implements HomeViewInterface,
     public static final String EXTRA_POSITION = "position";
     public static final String EXTRA_DETAIL = "detail";
     private final String TAG = "HomeFragment_TAG";
+    CheckInternetConnection cd;
+    TextView noInternet, cat, ins, planning;
     private RecyclerView recyclerViewAreas;
     private RecyclerView recyclerViewCategories;
     private AreasAdapter areasAdapter;
-    private CardView searchCard;
+    private CardView planningCard;
     private CategoriesAdapter categoriesAdapter;
     private SwipeMealAdapter swipeMealAdapter;
     private SwipeStack swipeStackView;
@@ -61,6 +73,9 @@ public class HomeFragment extends Fragment implements HomeViewInterface,
     private HomePresenter homePresenter;
     private Meal meal;
     private View view;
+    private ImageView logoutImg;
+    private GoogleSignInClient mGoogleSignInClient;
+    private FirebaseAuth mAuth;
 
     @Nullable
     @Override
@@ -70,40 +85,106 @@ public class HomeFragment extends Fragment implements HomeViewInterface,
 
         initViews();
         recyclerViewConfig();
+        cd = new CheckInternetConnection(getActivity());
 
-        homePresenter = new HomePresenter(this,
-                Repository.getInstance(getActivity(), ApiClient.getInstance(), ConcreteLocalSource.getInstance(getActivity())));
+        homePresenter = new HomePresenter(this, Repository.getInstance(getActivity(), ApiClient.getInstance(), ConcreteLocalSource.getInstance(getActivity())));
 
-//        homePresenter.getMealsByLetterFilter('g');
-//        homePresenter.getRandomMeal();
-//        homePresenter.getMealDetailsByID(52772);
-//        homePresenter.getListCategoriesNames();
+        if (!cd.isConnected()) {
+            hideViews();
+        } else {
+            getData();
+            showViews();
+        }
+
+        if (!(Utils.getSp(getActivity()).getBoolean(Utils.IsLoggedOn, false))) {
+            planning.setText("Sign in to Use Planner");
+            planningCard.setClickable(false);
+        } else {
+            planning.setText("Plan Your Days!");
+            planningCard.setClickable(true);
+        }
+
+
+        return view;
+    }
+
+    private void getData() {
         homePresenter.getListAreasNames();
-//        homePresenter.getListIngredientsNames();
-//        homePresenter.getMealsByCategory("Beef");
-//        homePresenter.getMealsByArea("Egyptian");
-//        homePresenter.getMealsByIngredient("Chicken");
         homePresenter.getListCategoriesDetails();
         for (int i = 0; i < 10; i++) {
             homePresenter.getRandomMeal();
             stackCounter++;
         }
-
-        return view;
     }
 
+    private void showViews() {
+        noInternet.setVisibility(View.GONE);
+        view.findViewById(R.id.shimmerArea).setVisibility(View.VISIBLE);
+        view.findViewById(R.id.shimmerCategory).setVisibility(View.VISIBLE);
+        cat.setVisibility(View.VISIBLE);
+        ins.setVisibility(View.VISIBLE);
+        swipeStackView.setVisibility(View.VISIBLE);
+        recyclerViewAreas.setVisibility(View.VISIBLE);
+        recyclerViewCategories.setVisibility(View.VISIBLE);
+    }
+
+    private void hideViews() {
+        noInternet.setVisibility(View.VISIBLE);
+        view.findViewById(R.id.shimmerArea).setVisibility(View.GONE);
+        view.findViewById(R.id.shimmerCategory).setVisibility(View.GONE);
+        cat.setVisibility(View.GONE);
+        ins.setVisibility(View.GONE);
+        swipeStackView.setVisibility(View.GONE);
+        recyclerViewAreas.setVisibility(View.GONE);
+        recyclerViewCategories.setVisibility(View.GONE);
+    }
+
+
     private void initViews() {
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken(getString(R.string.default_web_client_id)).requestEmail().build();
+        mGoogleSignInClient = GoogleSignIn.getClient(getActivity(), gso);
+        mAuth = FirebaseAuth.getInstance();
+
+        noInternet = view.findViewById(R.id.no_internet_text_view);
+        cat = view.findViewById(R.id.titleCategory);
+        ins = view.findViewById(R.id.meal_for_inspiration);
+        planning = view.findViewById(R.id.planning_card_text);
         swipeStackView = view.findViewById(R.id.swipe_stack_view);
         swipeStackView.setListener(this);
         stackMeals = new ArrayList<>();
         recyclerViewAreas = view.findViewById(R.id.viewPagerHeader);
         recyclerViewCategories = view.findViewById(R.id.recyclerCategory);
-        searchCard = view.findViewById(R.id.cardSearch);
-        searchCard.setOnClickListener(new View.OnClickListener() {
+        planningCard = view.findViewById(R.id.cardSearch);
+        logoutImg = view.findViewById(R.id.img_log_out);
+        planningCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), SearchActivity.class);
+                Intent intent = new Intent(getActivity(), WeekActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        logoutImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (!(Utils.getSp(getActivity()).getBoolean(Utils.IsLoggedOn, false))) {
+                    new AlertDialog.Builder(getActivity()).setMessage("Do You Want To SignUP ? ").setCancelable(false)
+                            .setPositiveButton("Yes, Lets SignUp", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    logout();
+                                }
+                            }).setNegativeButton("No, Stay Here", null).show();
+                } else {
+                    new AlertDialog.Builder(getActivity()).setMessage("Do You Really Want To SignOut? ").setCancelable(false).setPositiveButton("Yes, SignOut", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            logout();
+                        }
+                    }).setNegativeButton("No, Stay Here", null).show();
+                }
+
+
             }
         });
     }
@@ -123,6 +204,21 @@ public class HomeFragment extends Fragment implements HomeViewInterface,
         recyclerViewCategories.setAdapter(categoriesAdapter);
 
         swipeMealAdapter = new SwipeMealAdapter(getActivity(), new ArrayList<>(), this);
+    }
+
+    private void logout() {
+        mGoogleSignInClient.signOut();
+        mAuth.signOut();
+
+        Utils.getSpEditor(getActivity()).putString(Utils.UserID, "");
+        Utils.getSpEditor(getActivity()).putBoolean(Utils.IsLoggedOn, false);
+        Utils.getSpEditor(getActivity()).commit();
+
+        Intent userLogout = new Intent(getActivity(), LoginActivity.class);
+        userLogout.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        userLogout.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(userLogout);
+        getActivity().finish();
     }
 
     @Override
@@ -202,9 +298,17 @@ public class HomeFragment extends Fragment implements HomeViewInterface,
     }
 
     @Override
-    public void onFavMealClick(Meal meal) {
+    public void addToFavMeal(Meal meal) {
         this.meal = meal;
+        meal.setStrIngredient20(Utils.getSp(getActivity())
+                .getString(Utils.UserID, ""));
         homePresenter.addMealToFav(meal);
+    }
+
+    @Override
+    public void onFavMealClick(Meal meal) {
+        homePresenter.getMealDetailsByID(Integer.parseInt(meal.getIdMeal()));
+
     }
 
     @Override

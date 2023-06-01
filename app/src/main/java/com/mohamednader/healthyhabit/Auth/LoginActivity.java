@@ -32,6 +32,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.mohamednader.healthyhabit.MainHome.MainHome;
 import com.mohamednader.healthyhabit.R;
+import com.mohamednader.healthyhabit.Utils.Utils;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -148,6 +149,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 googleSignIn();
                 break;
             case R.id.guest_login_btn:
+                Utils.getSpEditor(this).putString(Utils.UserID, "");
+                Utils.getSpEditor(this).putBoolean(Utils.IsLoggedOn, false);
+                Utils.getSpEditor(this).commit();
                 startActivity(new Intent(LoginActivity.this, MainHome.class));
                 finish();
                 break;
@@ -322,26 +326,25 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         FirebaseUser firebaseUser = mAuth.getCurrentUser();
         firebaseUser.reload();
         emailAddressChecker = firebaseUser.isEmailVerified();
-        if (firebaseUser.getUid().equals("yLSVKZxA67gaA5a2k6TS73GleQJ3")) {
+
+        if (emailAddressChecker) {
+
+            Utils.getSpEditor(this).putString(Utils.UserID, firebaseUser.getUid().toString());
+            Utils.getSpEditor(this).putBoolean(Utils.IsLoggedOn, true);
+            Utils.getSpEditor(this).commit();
+
             Toast.makeText(LoginActivity.this, "Welcome", Toast.LENGTH_SHORT).show();
             mLoading.dismiss();
             startActivity(new Intent(LoginActivity.this, MainHome.class));
             finish();
+
         } else {
-            if (emailAddressChecker) {
-
-                Toast.makeText(LoginActivity.this, "Welcome", Toast.LENGTH_SHORT).show();
-                mLoading.dismiss();
-                startActivity(new Intent(LoginActivity.this, MainHome.class));
-                finish();
-
-            } else {
-                Toast.makeText(LoginActivity.this, "Please Verfiy Your Account First ..", Toast.LENGTH_SHORT).show();
-                mAuth.signOut();
-                mLoading.dismiss();
-            }
-
+            Toast.makeText(LoginActivity.this, "Please Verfiy Your Account First ..", Toast.LENGTH_SHORT).show();
+            mAuth.signOut();
+            mLoading.dismiss();
         }
+
+
     }
 
 

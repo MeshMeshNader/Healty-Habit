@@ -1,5 +1,6 @@
 package com.mohamednader.healthyhabit.Search.View;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,6 +29,7 @@ public class SearchActivity extends AppCompatActivity implements SearchViewInter
     SearchFragmentRequest searchFragmentRequest;
     SearchFragmentResponse searchFragmentResponse;
     private boolean isSearchFragmentDisplayed = false;
+    private boolean plan = false;
 
 
     @Override
@@ -42,6 +44,8 @@ public class SearchActivity extends AppCompatActivity implements SearchViewInter
             isSearchFragmentDisplayed = true;
         }
 
+        Intent intent = getIntent();
+        plan = getIntent().getBooleanExtra("PLAN", false);
 
     }
 
@@ -144,6 +148,7 @@ public class SearchActivity extends AppCompatActivity implements SearchViewInter
 
         Bundle args = new Bundle();
         args.putString("EXTRA_SEARCH", keyToSearch);
+        args.putBoolean("EXTRA_PLAN", plan);
         searchFragmentResponse.setArguments(args);
 
         replaceFragment(searchFragmentResponse, "searchResponse");

@@ -11,10 +11,12 @@ public interface SearchFragmentResponseViewInterface {
     public void showMealsByIngredient(List<Meal> list);
 
     public void showMealsByCategory(List<Meal> list);
-    
+
     public void showLoading();
 
     public void hideLoading();
+
+    public void addToFavMeal(Meal meal);
 
     public void onAddedToFavSuccessfully();
 

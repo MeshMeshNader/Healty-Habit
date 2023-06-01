@@ -19,16 +19,11 @@ public class Repository implements RepositoryInterface {
     Context context;
     RemoteSource remoteSource;
     LocalSource localSource;
-//    private GoogleSignInClient mGoogleSignInClient;
-//    private Boolean emailAddressChecker;
-//    private FirebaseAuth mAuth;
 
     private Repository(Context context, RemoteSource remoteSource, LocalSource localSource) {
         this.context = context;
         this.remoteSource = remoteSource;
         this.localSource = localSource;
-//        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken(context.getString(R.string.default_web_client_id)).requestEmail().build();
-//        mGoogleSignInClient = GoogleSignIn.getClient(context, gso);
 
 
     }
@@ -97,6 +92,21 @@ public class Repository implements RepositoryInterface {
     }
 
     @Override
+    public LiveData<List<Meal>> getAllMealsFav(String userID) {
+        return localSource.getAllMealsFav(userID);
+    }
+
+    @Override
+    public LiveData<List<Meal>> getAllMealsPlan(String userID, String date) {
+        return localSource.getAllMealsPlan(userID, date);
+    }
+
+    @Override
+    public LiveData<List<Meal>> getAllMealDetails(int mealId) {
+        return localSource.getAllMealDetails(mealId);
+    }
+
+    @Override
     public void insertMeal(Meal meal) {
         localSource.insertMeal(meal);
     }
@@ -105,39 +115,6 @@ public class Repository implements RepositoryInterface {
     public void deleteMeal(Meal meal) {
         localSource.deleteMeal(meal);
     }
-
-//    @Override
-//    public void startCallFirebaseLogin(NetworkDelegateAPI networkDelegate, String email, String password) {
-////        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-////            @Override
-////            public void onComplete(@NonNull Task<AuthResult> task) {
-////                if (task.isSuccessful()) {
-////                   // VerifyEmailAddress(networkDelegate);
-////                } else {
-//////                    String messsage = task.getException().getMessage();
-//////                    Toast.makeText(LoginActivity.this, "Error Occurred: " + messsage, Toast.LENGTH_LONG).show();
-//////                    mLoading.dismiss();
-////                 }
-////            }
-////        });
-//    }
-//
-//    private void VerifyEmailAddress(NetworkDelegateAPI networkDelegate) {
-//        FirebaseUser firebaseUser = mAuth.getCurrentUser();
-//        firebaseUser.reload();
-//        emailAddressChecker = firebaseUser.isEmailVerified();
-//        if (emailAddressChecker) {
-////            Toast.makeText(LoginActivity.this, "Welcome", Toast.LENGTH_SHORT).show();
-////            mLoading.dismiss();
-////            startActivity(new Intent(LoginActivity.this, HomeActivity.class));
-////            finish();
-////            networkDelegate.
-//        } else {
-////            Toast.makeText(LoginActivity.this, "Please Verfiy Your Account First ..", Toast.LENGTH_SHORT).show();
-////            mAuth.signOut();
-////            mLoading.dismiss();
-//        }
-//    }
 
 
 }

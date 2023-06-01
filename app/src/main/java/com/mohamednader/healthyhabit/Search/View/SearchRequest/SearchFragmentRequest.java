@@ -1,10 +1,6 @@
 package com.mohamednader.healthyhabit.Search.View.SearchRequest;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,18 +9,20 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
+import androidx.fragment.app.Fragment;
+
 import com.mohamednader.healthyhabit.Database.ConcreteLocalSource;
 import com.mohamednader.healthyhabit.Models.MealsModels.Meal;
 import com.mohamednader.healthyhabit.Models.Repository;
 import com.mohamednader.healthyhabit.Network.ApiClient;
 import com.mohamednader.healthyhabit.R;
-import com.mohamednader.healthyhabit.Search.Presenter.SearchRequest.SearchFragmentRequestPresenter;
 import com.mohamednader.healthyhabit.Search.Presenter.SearchPresenter;
+import com.mohamednader.healthyhabit.Search.Presenter.SearchRequest.SearchFragmentRequestPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchFragmentRequest extends Fragment implements SearchFragmentRequestViewInterface{
+public class SearchFragmentRequest extends Fragment implements SearchFragmentRequestViewInterface {
 
     View view;
     ProgressBar progressBar;
@@ -119,7 +117,6 @@ public class SearchFragmentRequest extends Fragment implements SearchFragmentReq
         arrayAdapter.getFilter().filter(newText);
         arrayAdapter.notifyDataSetChanged();
     }
-
 
 
 }

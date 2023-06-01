@@ -2,22 +2,19 @@ package com.mohamednader.healthyhabit.Search.View.SearchResponse;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.mohamednader.healthyhabit.Adapters.MealsAdapter;
 import com.mohamednader.healthyhabit.Adapters.OnMealClickListener;
 import com.mohamednader.healthyhabit.Database.ConcreteLocalSource;
@@ -25,8 +22,10 @@ import com.mohamednader.healthyhabit.MealDetails.View.MealDetailsActivity;
 import com.mohamednader.healthyhabit.Models.MealsModels.Meal;
 import com.mohamednader.healthyhabit.Models.Repository;
 import com.mohamednader.healthyhabit.Network.ApiClient;
+import com.mohamednader.healthyhabit.Planning.Presenter.CalendarUtils;
 import com.mohamednader.healthyhabit.R;
 import com.mohamednader.healthyhabit.Search.Presenter.SearchResponse.SearchFragmentResponsePresenter;
+import com.mohamednader.healthyhabit.Utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +33,7 @@ import java.util.List;
 
 public class SearchFragmentResponse extends Fragment implements SearchFragmentResponseViewInterface, OnMealClickListener {
 
+    public static final String EXTRA_MEAL_ID = "mealID";
     View view;
     RecyclerView recyclerView;
     ProgressBar progressBar;
@@ -42,7 +42,7 @@ public class SearchFragmentResponse extends Fragment implements SearchFragmentRe
     List<Meal> resultItems;
     String key = "";
     Meal meal;
-    public static final String EXTRA_MEAL_ID = "mealID";
+    private boolean plan = false;
 
     public SearchFragmentResponse() {
         // Required empty public constructor
@@ -84,10 +84,13 @@ public class SearchFragmentResponse extends Fragment implements SearchFragmentRe
 
         if (getArguments() != null) {
             key = getArguments().getString("EXTRA_SEARCH");
+            plan = getArguments().getBoolean("EXTRA_PLAN");
+
 
             searchFragmentResponsePresenter.getMealsByArea(key);
             searchFragmentResponsePresenter.getMealsByIngredient(key);
             searchFragmentResponsePresenter.getMealsByCategory(key);
+
 
         }
 
@@ -142,14 +145,36 @@ public class SearchFragmentResponse extends Fragment implements SearchFragmentRe
     }
 
     @Override
-    public void onFavMealClick(Meal meal) {
+    public void addToFavMeal(Meal meal) {
         this.meal = meal;
-        searchFragmentResponsePresenter.addMealToFav(meal);
+        if (!plan) {
+            meal.setStrIngredient20(Utils.getSp(getActivity())
+                    .getString(Utils.UserID, ""));
+            searchFragmentResponsePresenter.addMealToFav(meal);
+        } else {
+            Log.i("TESTINNNNNNG", "onFavMealClick: ");
+            meal.setStrMeasure20(CalendarUtils.selectedDate.toString());
+            meal.setStrIngredient20(Utils.getSp(getActivity())
+                    .getString(Utils.UserID, ""));
+            searchFragmentResponsePresenter.addMealToFav(meal);
+        }
+    }
+
+    @Override
+    public void onFavMealClick(Meal meal) {
+
+        searchFragmentResponsePresenter.getMealDetailsByID(Integer.parseInt(meal.getIdMeal()));
+
+
     }
 
     @Override
     public void onAddedToFavSuccessfully() {
-        Toast.makeText(getActivity(), meal.getStrMeal() + " Added To Fav! ", Toast.LENGTH_SHORT).show();
+        if (!plan)
+            Toast.makeText(getActivity(), meal.getStrMeal() + " Added To Fav! ", Toast.LENGTH_SHORT).show();
+        else
+            Toast.makeText(getActivity(), meal.getStrMeal() + " Added To Your Plan! ", Toast.LENGTH_SHORT).show();
+
     }
 
 }

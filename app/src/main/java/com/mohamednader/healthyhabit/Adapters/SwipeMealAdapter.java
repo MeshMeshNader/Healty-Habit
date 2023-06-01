@@ -13,6 +13,7 @@ import androidx.cardview.widget.CardView;
 import com.bumptech.glide.Glide;
 import com.mohamednader.healthyhabit.Models.MealsModels.Meal;
 import com.mohamednader.healthyhabit.R;
+import com.mohamednader.healthyhabit.Utils.Utils;
 
 import java.util.List;
 
@@ -69,12 +70,23 @@ public class SwipeMealAdapter extends BaseAdapter {
                 .load(meal.getStrMealThumb())
                 .into(mealImg);
 
-        mealFavImg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                      onMealClickListener.onFavMealClick(meal);
-            }
-        });
+        if (!(Utils.getSp(context).getBoolean(Utils.IsLoggedOn, false))) {
+            mealFavImg.setVisibility(View.GONE);
+            mealFavImg.setClickable(false);
+
+        } else {
+            mealFavImg.setVisibility(View.VISIBLE);
+            mealFavImg.setClickable(true);
+
+            mealFavImg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onMealClickListener.onFavMealClick(meal);
+                }
+            });
+
+        }
+
 
         mealNameTxtView.setOnClickListener(new View.OnClickListener() {
             @Override
