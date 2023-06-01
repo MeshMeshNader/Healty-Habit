@@ -46,6 +46,7 @@ public class AreaFragment extends Fragment implements AreaViewInterface, OnMealC
     AreaPresenter areaPresenter;
     CardView areaCardView;
     Meal meal;
+    TextView emptyMsg;
 
 
     public AreaFragment() {
@@ -65,7 +66,7 @@ public class AreaFragment extends Fragment implements AreaViewInterface, OnMealC
 
 
     private void initViews() {
-
+        emptyMsg = view.findViewById(R.id.empty_msg);
         recyclerView = view.findViewById(R.id.recyclerView);
         progressBar = view.findViewById(R.id.progressBar);
         imageArea = view.findViewById(R.id.imageArea);
@@ -87,6 +88,7 @@ public class AreaFragment extends Fragment implements AreaViewInterface, OnMealC
         super.onViewCreated(view, savedInstanceState);
 
         if (getArguments() != null) {
+            emptyMsg.setVisibility(View.GONE);
             textArea.setText(getArguments().getString("EXTRA_DATA_DESC"));
             Glide.with(getActivity())
                     .load(getArguments().getString("EXTRA_DATA_IMAGE"))
@@ -99,6 +101,8 @@ public class AreaFragment extends Fragment implements AreaViewInterface, OnMealC
                     Repository.getInstance(getActivity(), ApiClient.getInstance(), ConcreteLocalSource.getInstance(getActivity())));
 
             areaPresenter.getMealsByArea(getArguments().getString("EXTRA_DATA_NAME"));
+        }else{
+            emptyMsg.setVisibility(View.VISIBLE);
         }
     }
 

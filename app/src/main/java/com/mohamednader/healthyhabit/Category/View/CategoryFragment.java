@@ -47,6 +47,7 @@ public class CategoryFragment extends Fragment implements CategoryViewInterface,
     CardView categoryCardView;
     AlertDialog.Builder descDialog;
     Meal meal;
+    TextView emptyMsg;
 
     public CategoryFragment() {
         // Required empty public constructor
@@ -64,7 +65,7 @@ public class CategoryFragment extends Fragment implements CategoryViewInterface,
     }
 
     private void initViews() {
-
+        emptyMsg = view.findViewById(R.id.empty_msg);
         recyclerView = view.findViewById(R.id.recyclerView);
         progressBar = view.findViewById(R.id.progressBar);
         imageCategory = view.findViewById(R.id.imageCategory);
@@ -94,6 +95,7 @@ public class CategoryFragment extends Fragment implements CategoryViewInterface,
         super.onViewCreated(view, savedInstanceState);
 
         if (getArguments() != null) {
+            emptyMsg.setVisibility(View.GONE);
             textCategory.setText(getArguments().getString("EXTRA_DATA_DESC"));
             Glide.with(getActivity())
                     .load(getArguments().getString("EXTRA_DATA_IMAGE"))
@@ -109,6 +111,8 @@ public class CategoryFragment extends Fragment implements CategoryViewInterface,
                     Repository.getInstance(getActivity(), ApiClient.getInstance(), ConcreteLocalSource.getInstance(getActivity())));
 
             categoryPresenter.getMealsByCategory(getArguments().getString("EXTRA_DATA_NAME"));
+        }else{
+                emptyMsg.setVisibility(View.VISIBLE);
         }
     }
 
